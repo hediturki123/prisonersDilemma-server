@@ -3,7 +3,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class RestServer {
-    public static final boolean DEBUG=true;
+    public static final boolean DEBUG = true;
     public static void main(String[] args) {
         SpringApplication.run(RestServer.class, args);
     }
