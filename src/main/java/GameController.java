@@ -1,4 +1,5 @@
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import object.Game;
@@ -20,31 +22,32 @@ public class GameController {
 	
 	/**
 	 * 
-	 * @return
 	 */
 	@GetMapping("/")
-	public ResponseEntity<Game> read() {
-		return null;
+	@ResponseStatus(HttpStatus.OK)
+	public void read(@RequestBody Game g) {
+		game.displayScore();
 	}
 	
 	/**
 	 * 
-	 * @param g
-	 * @return
 	 */
 	@PostMapping("/")
-	public ResponseEntity<Game> create(@RequestBody Game g) {
-		return null;
+	@ResponseStatus(HttpStatus.CREATED)
+	public Game create() {
+		game.play();
+		return game;
 	}
 	
 	/**
 	 * 
 	 * @param g
-	 * @return
 	 */
 	@PutMapping("/")
-	public ResponseEntity<Game> update(@RequestBody Game g) {
-		return null;
+	@ResponseStatus(HttpStatus.OK)
+	public void update(@RequestBody Game g) {
+		game.calculateScore(0);
+		game.calculateScore(1);
 	}
 	
 	

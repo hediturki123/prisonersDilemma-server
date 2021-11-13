@@ -1,0 +1,1 @@
+web: java -jar target/prisonnersDilemma-server_g2_3-0.0.1-SNAPSHOT.jar
