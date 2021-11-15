@@ -5,14 +5,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin
+import object.Game;
+import object.Player;
+
 @RestController
-@RequestMapping("/test")
-public class HttpTest {
+@CrossOrigin
+@RequestMapping("/game")
+public class Controller {
 
-    @GetMapping("/ping")
+	Game game = new Game();
+	Player player1 = new Player();
+	Player player2 = new Player();
+	
+	
+	@GetMapping("/")
     String db() {
-      return "pong";
+      return "bruh";
     }
-
+	
 }
