@@ -1,1 +1,1 @@
-web: java -jar target/prisonnersDilemma-server_g2_3-0.0.1-SNAPSHOT.jar
+web: java -jar target/java-getting-started-1.0.jar
