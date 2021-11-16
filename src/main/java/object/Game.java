@@ -23,32 +23,31 @@ public class Game {
 	private Player player1;
 	
 	private Player player2;
-
 	
-	public Game() {
+	private int nbTurns;
+	
+	public Game(int nbTurns) {
 		incrId();
-		player1 = new Player();
-		player2 = new Player();
+		setNbTurns(nbTurns);
 	}
 	
-	public void calculateScore() {
+	public void calculateScore(Round round) {
 		
 	}
 	
-	public void displayScore() {
+	public void displayScore(Round round) {
 		
 	}
-	
-	public void createRoundAndSaveHistory(Player player) {
-	if ((player.action().equals(Decision.BETRAY)) || 
-				player.action().equals(Decision.COOPERATE)){
-			history.add(new Round());
+
+	public void launch() {
+		Round round;
+		for (int i = 0; i < nbTurns; i++) {
+			round = new Round();
+			round.playRound(this);
+			calculateScore(round);
+			displayScore(round);
+			history.add(round);
 		}
-	}
-	
-	public void play() {
-		Game game = player1.createGame(0);
-		player2.joinGame(game);
 	}
 
 	public void incrId() {
