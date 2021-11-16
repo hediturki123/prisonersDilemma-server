@@ -14,22 +14,21 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Game {
 	
+	private static int staticId = 1;
+	
 	private int id;
 	
-	private List<Round> rounds;
+	private List<Round> history;
 	
 	private Player player1;
 	
 	private Player player2;
+
 	
 	public Game() {
 		incrId();
-	}
-	
-	public Game(Player player1, Player player2) {
-		incrId();
-		setPlayer1(player1);
-		setPlayer2(player2);
+		player1 = new Player();
+		player2 = new Player();
 	}
 	
 	public void calculateScore() {
@@ -40,15 +39,20 @@ public class Game {
 		
 	}
 	
+	public void createRoundAndSaveHistory(Player player) {
+	if ((player.action().equals(Decision.BETRAY)) || 
+				player.action().equals(Decision.COOPERATE)){
+			history.add(new Round());
+		}
+	}
+	
 	public void play() {
-		Player player1 = new Player();
-		Player player2 = new Player();
 		Game game = player1.createGame(0);
 		player2.joinGame(game);
 	}
 
 	public void incrId() {
-		this.id++;
+		this.id = staticId++;
 	}
 	
 	public Player findPlayerById(int id) {
@@ -61,7 +65,7 @@ public class Game {
 		}
 	}
 	
-	public List<Player> getPlayers() {
+	public List<Player> allPlayers() {
 		return Arrays.asList(player1, player2);
 	}
 

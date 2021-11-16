@@ -2,6 +2,7 @@ package com.example;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +17,8 @@ import object.Player;
 @CrossOrigin
 @RequestMapping("/game")
 public class Controller {
-
-	Player player1 = new Player();
-	Player player2 = new Player();
-	Game game = new Game(player1, player2);
-
+	
+	private Game game = new Game();
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Game> readGame(@PathVariable(name = "id") int id) {
@@ -34,7 +32,8 @@ public class Controller {
 	
 	@GetMapping("/allPlayers")
 	public ResponseEntity<List<Player>> readAllPlayers() {
-		return ResponseEntity.ok(game.getPlayers());
+		return ResponseEntity.ok(game.allPlayers());
 	}
+	
 	
 }
