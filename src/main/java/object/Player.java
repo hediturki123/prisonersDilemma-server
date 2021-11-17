@@ -35,20 +35,14 @@ public class Player {
 	}
 	
 	public void joinGame(Game game) {
-		if (game.getPlayer1().getId() != this.id) {
+		if (game.getPlayer1().getId() != this.id && game.getPlayer2() == null) {
 			game.setPlayer2(this);
-			game.launch();
+			//game.launch();
 		}
 	}
 	
-	public void action(Game game, Decision decision) {
-		switch(decision) {
-		case COOPERATE :
-		case BETRAY :
-			break;
-		case GIVEUP :
-			break;
-		}
+	public void action(Decision decision) {
+		currentDecision = decision;
 	}
 	
 	public void incrId() {

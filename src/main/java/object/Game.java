@@ -32,11 +32,36 @@ public class Game {
 	}
 	
 	public void calculateScore(Round round) {
-		
-	}
-	
-	public void displayScore(Round round) {
-		
+		switch(round.getMovePlayer1()) {
+			case COOPERATE :
+				switch(round.getMovePlayer2()) {
+					case COOPERATE :
+						player1.setScore(player1.getScore() + 3);
+						player2.setScore(player2.getScore() + 3);
+						break;
+					case BETRAY :
+						player2.setScore(player2.getScore() + 5);
+						break;
+					default :
+						break;
+				}
+				break;
+			case BETRAY :
+				switch(round.getMovePlayer2()) {
+					case COOPERATE :
+						player1.setScore(player1.getScore() + 5);
+						break;
+					case BETRAY :
+						player1.setScore(player1.getScore() + 1);
+						player2.setScore(player2.getScore() + 1);
+						break;
+					default :
+						break;
+				}
+				break;
+			default :
+				break;
+		}
 	}
 
 	public void launch() {
@@ -45,7 +70,6 @@ public class Game {
 			round = new Round();
 			round.playRound(this);
 			calculateScore(round);
-			displayScore(round);
 			history.add(round);
 		}
 	}

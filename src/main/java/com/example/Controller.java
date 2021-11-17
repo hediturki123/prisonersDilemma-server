@@ -1,8 +1,11 @@
 package com.example;
 
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,51 +17,41 @@ import object.Player;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/game")
+@RequestMapping("/")
 public class Controller {
 	
-	/*private Game game = new Game();
-	
-	@GetMapping("/{id}")
-	public ResponseEntity<Game> readGame(@PathVariable(name = "id") int id) {
-		return ResponseEntity.ok(game);
-	}
-	
-	@GetMapping("/player/{id}")
-	public ResponseEntity<Player> readPlayer(@PathVariable(name = "id") int id) {
-		return ResponseEntity.ok(game.findPlayerById(id));			
-	}
-	
-	@GetMapping("/allPlayers")
-	public ResponseEntity<List<Player>> readAllPlayers() {
-		return ResponseEntity.ok(game.allPlayers());
-	}
-	*/
-	@PostMapping("/home")
+	@GetMapping("/home")
 	public ResponseEntity<Game> createGame() {
 		Player player1 = new Player();
 		return ResponseEntity.ok(player1.createGame(10));
 	}
 	
-	@PostMapping("/home")
-	public void joinGame(int id) {
+	@GetMapping("/home/{idGame}")
+	public ResponseEntity<Game> joinGame(@PathVariable(name = "idGame") int id) {
 		Player player2 = new Player();
-		player2.joinGame(findGameById(id));
+		Game game = findGameById(id);
+		player2.joinGame(game);
+		return ResponseEntity.ok(game);
 	}
 	
-	@PostMapping("/home/game?id={idGame}/player/{idPlayer}")
+	@GetMapping("/home/game/{id}")
+	public ResponseEntity<Game> readGame(@PathVariable(name = "id") int id) {
+		return ResponseEntity.ok(findGameById(id));
+	}
+	
+	/*@PostMapping("/home/game?id={idGame}/player/{idPlayer}")
 	public void actionCooperate(@PathVariable(name = "idGame") int idGame, @PathVariable(name = "idGame") int idPlayer) {
 		Game game = findGameById(idGame);
 		Player player = game.findPlayerById(idPlayer);
-		player.action(game, Decision.COOPERATE);
+		player.action(Decision.COOPERATE);
 	}
 	
 	@PostMapping("/home/game?id={idGame}/player/{idPlayer}")
 	public void actionBetray(@PathVariable(name = "idGame") int idGame, @PathVariable(name = "idGame") int idPlayer) {
 		Game game = findGameById(idGame);
 		Player player = game.findPlayerById(idPlayer);
-		player.action(game, Decision.BETRAY);
-	}
+		player.action(Decision.BETRAY);
+	}*/
 	
 	public Game findGameById(int id) {
 		int i = 0;
@@ -69,5 +62,18 @@ public class Controller {
 			return null;
 		}
 		return RestServer.games.get(i);
+	}
+	
+	@GetMapping("/home/game/{idGame}/player/{idPlayer}")
+	public ResponseEntity<Player> readPlayer(@PathVariable(name = "idGame") int idGame, 
+			@PathVariable(name = "idPlayer") int idPlayer) {
+		Game game = findGameById(idGame);
+		return ResponseEntity.ok(game.findPlayerById(idPlayer));			
+	}
+	
+	@GetMapping("home/game/{idGame}/allPlayers")
+	public ResponseEntity<List<Player>> readAllPlayers(@PathVariable(name = "idGame") int idGame) {
+		Game game = findGameById(idGame);
+		return ResponseEntity.ok(game.allPlayers());
 	}
 }
