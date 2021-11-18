@@ -30,7 +30,6 @@ public class Player {
 	public Game createGame(int nbTurns) {
 		Game game = new Game(nbTurns);
 		game.setPlayer1(this);
-		System.out.println("create game : " + game.getId());
 		RestServer.games.add(game);
 		return game;
 	}

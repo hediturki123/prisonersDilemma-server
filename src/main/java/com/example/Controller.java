@@ -90,14 +90,34 @@ public class Controller {
 		return ResponseEntity.ok(game.findPlayerById(idPlayer));			
 	}
 	
-	@PutMapping("/game/{idGame}/player/{idPlayer}")
+	/*@PutMapping("/game/{idGame}/player/{idPlayer}")
 	public ResponseEntity<Player> updatePlayer(@PathVariable(name = "idGame") int idGame, 
 			@PathVariable(name = "idPlayer") int idPlayer) {
 		Game game = findGameById(idGame);
 		Player player = game.findPlayerById(idPlayer);
 		player.setScore(3);
 		return ResponseEntity.ok(player);			
+	}*/
+	
+	@PutMapping("/game/{idGame}/player/{idPlayer}")
+	public ResponseEntity<Player> updatePlayerDecision(@PathVariable(name = "idGame") int idGame, 
+			@PathVariable(name = "idPlayer") int idPlayer, @RequestBody String newPlayer) {
+		Game game = findGameById(idGame);
+		Player player = game.findPlayerById(idPlayer);
+		//player.setId(newPlayer.getId());
+		player.setScore(3);
+		player.setCurrentDecision(Decision.COOPERATE);
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa : " + newPlayer);
+		return ResponseEntity.ok(player);			
 	}
+	
+	/*@GetMapping("/play/{idGame}/{idPlayer}")
+	public ResponseEntity<Decision> readDecision(@PathVariable(name = "idGame") int idGame, 
+			@PathVariable(name = "idPlayer") int idPlayer) {
+		Game game = findGameById(idGame);
+		return ResponseEntity.ok(game.getPlayer1().getCurrentDecision());
+	}*/
+	
 	
 	@GetMapping("/game/{idGame}/allRounds")
 	public ResponseEntity<List<Round>> readAllRounds(@PathVariable(name = "idGame") int idGame) {
