@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,13 +23,13 @@ import object.Round;
 @RequestMapping("/home")
 public class Controller {
 	
-	@GetMapping("/")
-	public ResponseEntity<Game> createGame() {
+	@PostMapping("/{nbTurns}")
+	public ResponseEntity<Game> createGame(@PathVariable(name = "nbTurns") int nbTurns) {
 		Player player1 = new Player();
-		return ResponseEntity.ok(player1.createGame(10));
+		return ResponseEntity.ok(player1.createGame(nbTurns));
 	}
 	
-	@GetMapping("/{idGame}")
+	@PutMapping("/game/{idGame}")
 	public ResponseEntity<Game> joinGame(@PathVariable(name = "idGame") int id) {
 		Player player2 = new Player();
 		Game game = findGameById(id);
@@ -38,8 +39,24 @@ public class Controller {
 	
 	@GetMapping("/game/{id}")
 	public ResponseEntity<Game> readGame(@PathVariable(name = "id") int id) {
-		return ResponseEntity.ok(findGameById(id));
+		Game game = findGameById(id);
+		return ResponseEntity.ok(game);
 	}
+	
+	@GetMapping("game/lastGame")
+	public ResponseEntity<Game> readLastGame() {
+		return ResponseEntity.ok(RestServer.games.get(RestServer.games.size() - 1));
+	}
+	/*
+	@PutMapping("/game/{id}")
+	public ResponseEntity<Game> updateGame(@PathVariable(name = "id") int id, 
+			@RequestBody Game g) {
+		if (g.getId() == id) {
+			return ResponseEntity.ok(g);			
+		} else {
+			 return ResponseEntity.status(401).body(null);
+		}
+	}*/
 	
 	/*@PostMapping("/home/game?id={idGame}/player/{idPlayer}")
 	public void actionCooperate(@PathVariable(name = "idGame") int idGame, @PathVariable(name = "idGame") int idPlayer) {
