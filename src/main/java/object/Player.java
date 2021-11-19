@@ -2,6 +2,7 @@ package object;
 
 import com.example.RestServer;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,16 +12,20 @@ import strategies.Strategy;
 @Setter
 @AllArgsConstructor
 public class Player {
-	
+	@Getter(AccessLevel.NONE)
+	@Setter(AccessLevel.NONE)
 	private static int staticId = 1;
 	
 	private int id;
 	
 	private int score;
-	
+	@Getter(AccessLevel.NONE)
+	@Setter(AccessLevel.NONE)
 	private Strategy strategy;
 	
 	private Decision currentDecision;
+	
+	private boolean havePlayed = false;
 	
 	public Player() {
 		incrId();

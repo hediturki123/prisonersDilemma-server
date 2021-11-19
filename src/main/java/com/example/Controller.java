@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import object.Decision;
 import object.Game;
 import object.Player;
 import object.Round;
@@ -58,20 +57,6 @@ public class Controller {
 		}
 	}*/
 	
-	/*@PostMapping("/home/game?id={idGame}/player/{idPlayer}")
-	public void actionCooperate(@PathVariable(name = "idGame") int idGame, @PathVariable(name = "idGame") int idPlayer) {
-		Game game = findGameById(idGame);
-		Player player = game.findPlayerById(idPlayer);
-		player.action(Decision.COOPERATE);
-	}
-	
-	@PostMapping("/home/game?id={idGame}/player/{idPlayer}")
-	public void actionBetray(@PathVariable(name = "idGame") int idGame, @PathVariable(name = "idGame") int idPlayer) {
-		Game game = findGameById(idGame);
-		Player player = game.findPlayerById(idPlayer);
-		player.action(Decision.BETRAY);
-	}*/
-	
 	public Game findGameById(int id) {
 		int i = 0;
 		while (i < RestServer.games.size() && RestServer.games.get(i).getId() != id) {
@@ -90,34 +75,16 @@ public class Controller {
 		return ResponseEntity.ok(game.findPlayerById(idPlayer));			
 	}
 	
-	/*@PutMapping("/game/{idGame}/player/{idPlayer}")
-	public ResponseEntity<Player> updatePlayer(@PathVariable(name = "idGame") int idGame, 
-			@PathVariable(name = "idPlayer") int idPlayer) {
-		Game game = findGameById(idGame);
-		Player player = game.findPlayerById(idPlayer);
-		player.setScore(3);
-		return ResponseEntity.ok(player);			
-	}*/
-	
 	@PutMapping("/game/{idGame}/player/{idPlayer}")
-	public ResponseEntity<Player> updatePlayerDecision(@PathVariable(name = "idGame") int idGame, 
-			@PathVariable(name = "idPlayer") int idPlayer, @RequestBody String newPlayer) {
+	public ResponseEntity<Player> updatePlayer(@PathVariable(name = "idGame") int idGame, 
+			@PathVariable(name = "idPlayer") int idPlayer, @RequestBody Player newPlayer) {
 		Game game = findGameById(idGame);
 		Player player = game.findPlayerById(idPlayer);
-		//player.setId(newPlayer.getId());
-		player.setScore(3);
-		player.setCurrentDecision(Decision.COOPERATE);
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa : " + newPlayer);
+		player.setId(newPlayer.getId());
+		player.setScore(newPlayer.getScore());
+		player.setCurrentDecision(newPlayer.getCurrentDecision());
 		return ResponseEntity.ok(player);			
 	}
-	
-	/*@GetMapping("/play/{idGame}/{idPlayer}")
-	public ResponseEntity<Decision> readDecision(@PathVariable(name = "idGame") int idGame, 
-			@PathVariable(name = "idPlayer") int idPlayer) {
-		Game game = findGameById(idGame);
-		return ResponseEntity.ok(game.getPlayer1().getCurrentDecision());
-	}*/
-	
 	
 	@GetMapping("/game/{idGame}/allRounds")
 	public ResponseEntity<List<Round>> readAllRounds(@PathVariable(name = "idGame") int idGame) {
