@@ -1,4 +1,4 @@
-package tests;
+package object;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,11 +30,11 @@ class GameTest {
 
 	@Test
 	void testGameInt() {
-		assertEquals(true, game.getNbTurns()==1);
+		assertEquals(true, game.getNbTurns()==10);
 	}
 
 	@Test
-	void testCalculateScoreCBothCooperate() {
+	void testCalculateScoreBothCooperate() {
 		Round round1 = new Round();
 		round1.setMovePlayer1(Decision.COOPERATE);
 		round1.setMovePlayer2(Decision.COOPERATE);
@@ -63,11 +63,6 @@ class GameTest {
 		assertEquals(true, player2.getScore() == 5);
 	}
 	
-	@Test
-	void testLaunch() {
-		
-	}
-
 	@Test
 	void testFindPlayerById() {
 		assertEquals(true, game.findPlayerById(game.getPlayer1().getId()).equals(player1));

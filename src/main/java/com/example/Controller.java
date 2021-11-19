@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import object.Decision;
 import object.Game;
-import object.PlayThread;
 import object.Player;
 import object.Round;
 
@@ -35,8 +34,6 @@ public class Controller {
 		Player player2 = new Player();
 		Game game = findGameById(id);
 		player2.joinGame(game);
-		Thread gameThread = new PlayThread(game);
-		gameThread.start();
 		return ResponseEntity.ok(game);
 	}
 	

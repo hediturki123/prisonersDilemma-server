@@ -21,6 +21,7 @@ public class Round {
 			movePlayer2 = game.getPlayer2().getCurrentDecision();
 			game.getPlayer1().setCurrentDecision(null);
 			game.getPlayer2().setCurrentDecision(null);
+			notifyAll();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
