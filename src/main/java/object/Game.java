@@ -64,11 +64,13 @@ public class Game {
 		}
 	}
 
-	public void launch() {
+	synchronized public void launch() {
 		Round round;
+		Thread playRound;
 		for (int i = 0; i < nbTurns; i++) {
 			round = new Round();
-			round.playRound(this);
+			playRound = new RoundThread(round, this);
+			playRound.start();
 			calculateScore(round);
 			history.add(round);
 		}
