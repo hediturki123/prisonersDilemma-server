@@ -8,11 +8,6 @@ import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import object.Decision;
-import object.Game;
-import object.Player;
-import object.Round;
-
 class GameTest {
 
 	private Game game;
@@ -20,7 +15,7 @@ class GameTest {
 	private Player player2;
 	
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp() {
 		game = new Game(10);
 		player1 = new Player();
 		player2 = new Player();
@@ -29,8 +24,13 @@ class GameTest {
 	}
 
 	@Test
-	void testGameInt() {
-		assertEquals(true, game.getNbTurns()==10);
+	void testGameNbTurns() {
+		assertEquals(true, game.getNbTurns() == 10);
+	}
+	
+	@Test
+	void testGameId() {
+		assertEquals(true, game.getId() == 1);
 	}
 
 	@Test
@@ -63,9 +63,30 @@ class GameTest {
 		assertEquals(true, player2.getScore() == 5);
 	}
 	
+
 	@Test
-	void testFindPlayerById() {
+	void testCalculateScoreBetrayCooperate() {
+		Round round1 = new Round();
+		round1.setMovePlayer1(Decision.BETRAY);
+		round1.setMovePlayer2(Decision.COOPERATE);
+		game.calculateScore(round1);
+		assertEquals(true, player1.getScore() == 0);
+		assertEquals(true, player2.getScore() == 5);
+	}
+	
+	@Test
+	void testFindPlayerByIdPlayer1() {
 		assertEquals(true, game.findPlayerById(game.getPlayer1().getId()).equals(player1));
+	}
+	
+	@Test
+	void testFindPlayerByIdPlayer2() {
+		assertEquals(true, game.findPlayerById(game.getPlayer2().getId()).equals(player2));
+	}
+	
+	@Test
+	void testFindPlayerByIdPlayerNull() {
+		assertEquals(true, game.findPlayerById(5).equals(player1));
 	}
 
 	@Test

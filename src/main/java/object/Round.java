@@ -11,7 +11,7 @@ public class Round {
 	
 	private Decision movePlayer2;
 	
-	synchronized public void playRound(Game game) {
+	public synchronized void playRound(Game game) {
 		try {
 			while(game.getPlayer1().getCurrentDecision() == null &&
 					game.getPlayer2().getCurrentDecision() == null) {

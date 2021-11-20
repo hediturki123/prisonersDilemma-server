@@ -11,7 +11,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class Game {
 	
 	private static int staticId = 1;
@@ -45,7 +44,6 @@ public class Game {
 					default :
 						break;
 				}
-				break;
 			case BETRAY :
 				switch(round.getMovePlayer2()) {
 					case COOPERATE :
@@ -58,21 +56,20 @@ public class Game {
 					default :
 						break;
 				}
-				break;
 			default :
 				break;
 		}
 	}
 
-	public void launch() {
-		Round round;
-		for (int i = 0; i < nbTurns; i++) {
-			round = new Round();
-			round.playRound(this);
-			calculateScore(round);
-			history.add(round);
-		}
-	}
+//	public void launch() {
+//		Round round;
+//		for (int i = 0; i < nbTurns; i++) {
+//			round = new Round();
+//			round.playRound(this);
+//			calculateScore(round);
+//			history.add(round);
+//		}
+//	}
 
 	public void incrId() {
 		this.id = staticId++;

@@ -14,13 +14,12 @@ import strategies.Strategy;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class Player {
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
 	private static int staticId = 1;
 	
-	private Game game;
+	//private Game game;
 	
 	private int id;
 	
@@ -39,7 +38,7 @@ public class Player {
 	public Player() {
 		incrId();
 		this.score = 0;
-		this.game = null;
+		//this.game = null;
 		this.hasLeftTheGame = false;
 	}
 	
@@ -47,14 +46,14 @@ public class Player {
 		Game game = new Game(nbTurns);
 		game.setPlayer1(this);
 		RestServer.games.add(game);
-		setGame(game);
+		//setGame(game);
 		return game;
 	}
 	
 	public void joinGame(Game game) {
 		if (game.getPlayer1().getId() != this.id && game.getPlayer2() == null) {
 			game.setPlayer2(this);
-			setGame(game);
+			//setGame(game);
 			//game.launch();
 		}
 	}
@@ -88,8 +87,4 @@ public class Player {
 		this.id = staticId++;
 	}
 	
-	public void incrScore() {
-		this.score++;
-	}
-
 }
