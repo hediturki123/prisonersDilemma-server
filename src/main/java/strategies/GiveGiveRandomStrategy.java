@@ -7,9 +7,10 @@ import object.Player;
 
 public final class GiveGiveRandomStrategy implements Strategy {
 
+	Random random = new Random();
+	
 	@Override
 	public void action(Player player) {
-		Random random = new Random();
 		boolean isDecisionRandom = (1 + random.nextInt(100)) > 80; // int between 1 and 100
 		if (isDecisionRandom) {
 			boolean isRandomDecisionCooperate = random.nextBoolean();

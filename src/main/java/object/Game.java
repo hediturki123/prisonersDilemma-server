@@ -4,7 +4,6 @@ package object;
 import java.util.Arrays;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,7 +25,7 @@ public class Game {
 	private int nbTurns;
 	
 	public Game(int nbTurns) {
-		incrId();
+		this.id = staticId++;
 		setNbTurns(nbTurns);
 	}
 	
@@ -44,6 +43,7 @@ public class Game {
 					default :
 						break;
 				}
+				break;
 			case BETRAY :
 				switch(round.getMovePlayer2()) {
 					case COOPERATE :
@@ -56,6 +56,7 @@ public class Game {
 					default :
 						break;
 				}
+				break;
 			default :
 				break;
 		}
@@ -71,10 +72,6 @@ public class Game {
 //		}
 //	}
 
-	public void incrId() {
-		this.id = staticId++;
-	}
-	
 	public Player findPlayerById(int id) {
 		if (player1.getId() == id) {
 			return player1;

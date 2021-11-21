@@ -44,28 +44,18 @@ public class Controller {
 	
 	@GetMapping("game/lastGame")
 	public ResponseEntity<Game> readLastGame() {
-		return ResponseEntity.ok(RestServer.games.get(RestServer.games.size() - 1));
+		return ResponseEntity.ok(RestServer.getGames().get(RestServer.getGames().size() - 1));
 	}
-	/*
-	@PutMapping("/game/{id}")
-	public ResponseEntity<Game> updateGame(@PathVariable(name = "id") int id, 
-			@RequestBody Game g) {
-		if (g.getId() == id) {
-			return ResponseEntity.ok(g);			
-		} else {
-			 return ResponseEntity.status(401).body(null);
-		}
-	}*/
 	
 	public Game findGameById(int id) {
 		int i = 0;
-		while (i < RestServer.games.size() && RestServer.games.get(i).getId() != id) {
+		while (i < RestServer.getGames().size() && RestServer.getGames().get(i).getId() != id) {
 			i++;
 		}
-		if (i == RestServer.games.size()) {
+		if (i == RestServer.getGames().size()) {
 			return null;
 		}
-		return RestServer.games.get(i);
+		return RestServer.getGames().get(i);
 	}
 	
 	@GetMapping("/game/{idGame}/player/{idPlayer}")
@@ -80,7 +70,6 @@ public class Controller {
 			@PathVariable(name = "idPlayer") int idPlayer, @RequestBody Player newPlayer) {
 		Game game = findGameById(idGame);
 		Player player = game.findPlayerById(idPlayer);
-		player.setId(newPlayer.getId());
 		player.setScore(newPlayer.getScore());
 		player.setCurrentDecision(newPlayer.getCurrentDecision());
 		return ResponseEntity.ok(player);			

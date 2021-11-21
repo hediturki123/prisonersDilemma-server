@@ -91,19 +91,19 @@ class PlayerTest {
 	
 	@Test
 	void testCreateGame() {
-		RestServer.games.clear();
+		RestServer.getGames().clear();
 		Game game = player.createGame(10);
-		assertEquals(true, RestServer.games.get(0).equals(game));
+		assertEquals(true, RestServer.getGames().get(0).equals(game));
 		assertEquals(true, game.getNbTurns() == 10);
-		assertEquals(true, player.getId() == RestServer.games.get(0).getPlayer1().getId());
+		assertEquals(true, player.getId() == RestServer.getGames().get(0).getPlayer1().getId());
 	}
 	
 	@Test
 	void testCreateGameButCompareWithOther() {
-		RestServer.games.clear();
+		RestServer.getGames().clear();
 		Game game = player.createGame(10);
 		player.createGame(7);
-		assertEquals(false, RestServer.games.get(1).equals(game));
-		assertEquals(false, game.getId() == RestServer.games.get(1).getId());
+		assertEquals(false, RestServer.getGames().get(1).equals(game));
+		assertEquals(false, game.getId() == RestServer.getGames().get(1).getId());
 	}
 }

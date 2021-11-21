@@ -9,9 +9,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import object.Game;
 
 @SpringBootApplication
+
 public class RestServer {
 	
-	public static List<Game> games = new ArrayList<>();
+	private static List<Game> games = new ArrayList<>();
+
+	public static void addGame(Game game) {
+		games.add(game);
+	}
+	
+	public static List<Game> getGames() {
+		return games;
+	}
 	
     public static void main(String[] args) {
         SpringApplication.run(RestServer.class, args);

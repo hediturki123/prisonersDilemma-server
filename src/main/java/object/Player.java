@@ -3,7 +3,6 @@ package object;
 import com.example.RestServer;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import strategies.BetrayStrategy;
@@ -36,7 +35,7 @@ public class Player {
 	private boolean hasLeftTheGame;
 	
 	public Player() {
-		incrId();
+		this.id = staticId++;
 		this.score = 0;
 		//this.game = null;
 		this.hasLeftTheGame = false;
@@ -44,8 +43,8 @@ public class Player {
 	
 	public Game createGame(int nbTurns) {
 		Game game = new Game(nbTurns);
-		game.setPlayer1(this);
-		RestServer.games.add(game);
+		game.setPlayer1(this); 
+		RestServer.addGame(game);
 		//setGame(game);
 		return game;
 	}
@@ -61,30 +60,27 @@ public class Player {
 	public void action(Decision decision, int strategyCode) {
 		if(strategyCode == 0) {
 			this.currentDecision = decision;
-		}
-		else {
+		} else {
 			if(decision == Decision.GIVEUP) {
 				switch(strategyCode) {
-				case 1:
-					this.strategy = new GiveGiveStrategy();
-					break;
-				case 2:
-					this.strategy = new GiveGiveRandomStrategy();
-					break;
-				case 3:
-					this.strategy = new CooperateStrategy();
-					break;
-				case 4:
-					this.strategy = new BetrayStrategy();
-					break;
+					case 1:
+						this.strategy = new GiveGiveStrategy();
+						break;
+					case 2:
+						this.strategy = new GiveGiveRandomStrategy();
+						break;
+					case 3:
+						this.strategy = new CooperateStrategy();
+						break;
+					case 4:
+						this.strategy = new BetrayStrategy();
+						break;
+					default : 
+						break;
 				}
 			}
 			strategy.action(this);
 		}
-	}
-	
-	public void incrId() {
-		this.id = staticId++;
 	}
 	
 }

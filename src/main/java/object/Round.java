@@ -12,18 +12,18 @@ public class Round {
 	private Decision movePlayer2;
 	
 	public synchronized void playRound(Game game) {
-		try {
 			while(game.getPlayer1().getCurrentDecision() == null &&
 					game.getPlayer2().getCurrentDecision() == null) {
-				wait();
+				try {
+					wait();
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
 			}
 			movePlayer1 = game.getPlayer1().getCurrentDecision();
 			movePlayer2 = game.getPlayer2().getCurrentDecision();
 			game.getPlayer1().setCurrentDecision(null);
 			game.getPlayer2().setCurrentDecision(null);
 			notifyAll();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
+		} 
 }
