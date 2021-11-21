@@ -1,6 +1,7 @@
 package object;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,6 +19,8 @@ public class Game {
 	
 	private List<Round> history;
 	
+	private int currentRound;
+	
 	private Player player1;
 	
 	private Player player2;
@@ -27,6 +30,7 @@ public class Game {
 	public Game(int nbTurns) {
 		this.id = staticId++;
 		setNbTurns(nbTurns);
+		this.history = new ArrayList<>();
 	}
 	
 	public void calculateScore(Round round) {
@@ -62,15 +66,15 @@ public class Game {
 		}
 	}
 
-//	public void launch() {
-//		Round round;
-//		for (int i = 0; i < nbTurns; i++) {
-//			round = new Round();
-//			round.playRound(this);
-//			calculateScore(round);
-//			history.add(round);
-//		}
-//	}
+	public void launch() {
+		Round round;
+		if (currentRound <= nbTurns) {
+			round = new Round();
+			round.playRound(this);
+			calculateScore(round);
+			history.add(round);
+		}
+	}
 
 	public Player findPlayerById(int id) {
 		if (player1.getId() == id) {

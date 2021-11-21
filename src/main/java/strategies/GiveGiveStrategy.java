@@ -19,7 +19,7 @@ public final class GiveGiveStrategy implements Strategy {
 		}
 		if(index == RestServer.getGames().size()) {
 			player.setCurrentDecision(Decision.COOPERATE);
-		}else {
+		} else {
 			Game game = RestServer.getGames().get(index);
 			List<Round> rounds = RestServer.getGames().get(index).getHistory();
 			if(rounds != null) {

@@ -48,7 +48,6 @@ public class Player {
 	public void joinGame(Game game) {
 		if (game.getPlayer1().getId() != this.id && game.getPlayer2() == null) {
 			game.setPlayer2(this);
-			//game.launch();
 		}
 	}
 	

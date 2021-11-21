@@ -36,6 +36,17 @@ public class Controller {
 		return ResponseEntity.ok(game);
 	}
 	
+	@PutMapping("/game/{idGame}/{currentRound}")
+	public ResponseEntity<Game> updateGame(@PathVariable(name = "idGame") int id, @PathVariable(name = "currentRound") int currentRound, @RequestBody Game newGame) {
+		Game game = findGameById(id);
+		game.setCurrentRound(newGame.getCurrentRound());
+		game.setNbTurns(newGame.getNbTurns());
+		game.setPlayer1(newGame.getPlayer1());
+		game.setPlayer2(newGame.getPlayer2());
+		game.setHistory(newGame.getHistory());
+		return ResponseEntity.ok(game);
+	}
+	
 	@GetMapping("/game/{id}")
 	public ResponseEntity<Game> readGame(@PathVariable(name = "id") int id) {
 		Game game = findGameById(id);
@@ -72,6 +83,10 @@ public class Controller {
 		Player player = game.findPlayerById(idPlayer);
 		player.setScore(newPlayer.getScore());
 		player.setCurrentDecision(newPlayer.getCurrentDecision());
+		player.action(newPlayer.getCurrentDecision(), 0);
+		if (game.getPlayer1().getCurrentDecision() != null && game.getPlayer2().getCurrentDecision() != null) {
+			game.launch();
+		}
 		return ResponseEntity.ok(player);			
 	}
 	
