@@ -6,14 +6,9 @@ import java.util.List;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
-import com.example.RestServer;
 
-@TestMethodOrder(OrderAnnotation.class)
 class GameTest {
 
 	private Game game;
@@ -32,13 +27,6 @@ class GameTest {
 	@Test
 	void testGameNbTurns() {
 		assertEquals(true, game.getNbTurns() == 10);
-	}
-	
-	@Test
-	@Order(1)
-	void testGameId() {
-		System.out.println("yo "+game.getId());
-		assertEquals(true, game.getId() == 1);
 	}
 
 	@Test

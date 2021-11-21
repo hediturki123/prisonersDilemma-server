@@ -82,7 +82,7 @@ public class Game {
 	public Player findPlayerById(int id) {
 		if (player1.getId() == id) {
 			return player1;
-		} else if (player2.getId() == id) {
+		} else if (player2 != null && player2.getId() == id) {
 			return player2;
 		} else {
 			return null;

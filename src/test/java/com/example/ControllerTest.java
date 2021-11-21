@@ -2,6 +2,8 @@ package com.example;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +64,7 @@ class ControllerTest {
 	@Test
 	void readPlayerTest() {
 		ResponseEntity<Game> createGame = controller.createGame(10);
-		ResponseEntity<Player> readPlayer = controller.readPlayer(createGame.getBody().getPlayer1().getId(), createGame.getBody().getId());
+		ResponseEntity<Player> readPlayer = controller.readPlayer(createGame.getBody().getId(), createGame.getBody().getPlayer1().getId());
 		assertEquals(createGame.getBody().getPlayer1().getId(), readPlayer.getBody().getId());
 	}
 	
@@ -71,7 +73,32 @@ class ControllerTest {
 		Player newPlayer = new Player();
 		newPlayer.setScore(10);
 		newPlayer.setCurrentDecision(Decision.BETRAY);
-		ResponseEntity<Player> updatePlayer = controller.updatePlayer(1, 1, newPlayer);
+		Game game = new Game(10);
+		game.setPlayer1(newPlayer);
+		
+		List<Game> games = RestServer.getGames();
+		int indexGameFound = -1;
+		for(int i = 0; i < games.size(); i++) {
+			boolean isFound = false;
+	    	if(games.get(i).getPlayer1() != null && games.get(i).getPlayer2() != null)
+	    	{
+	    		if(games.get(i).getPlayer1().getId() == newPlayer.getId() || games.get(i).getPlayer2().getId() == newPlayer.getId()) {
+	    			isFound = true;
+	    		}
+	    	}else if(games.get(i).getPlayer2() != null){
+	    		if(games.get(i).getPlayer2().getId() == newPlayer.getId()) {
+	    			isFound = true;
+	    		}
+	    	}else if(games.get(i).getPlayer1() != null) {
+	    		if(games.get(i).getPlayer1().getId() == newPlayer.getId()) {
+	    			isFound = true;
+	    		}
+	    	}
+	    	if(isFound) {
+	    		indexGameFound = i;
+	    	}
+		}
+		ResponseEntity<Player> updatePlayer = controller.updatePlayer(games.get(indexGameFound).getId(), newPlayer.getId(), newPlayer);
 		assertEquals(newPlayer.getScore(), updatePlayer.getBody().getScore());
 		assertEquals(newPlayer.getCurrentDecision(), updatePlayer.getBody().getCurrentDecision());
 	}
