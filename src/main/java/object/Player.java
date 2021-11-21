@@ -17,9 +17,7 @@ public class Player {
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
 	private static int staticId = 1;
-	
-	//private Game game;
-	
+		
 	private int id;
 	
 	private int score;
@@ -37,7 +35,6 @@ public class Player {
 	public Player() {
 		this.id = staticId++;
 		this.score = 0;
-		//this.game = null;
 		this.hasLeftTheGame = false;
 	}
 	
@@ -45,14 +42,12 @@ public class Player {
 		Game game = new Game(nbTurns);
 		game.setPlayer1(this); 
 		RestServer.addGame(game);
-		//setGame(game);
 		return game;
 	}
 	
 	public void joinGame(Game game) {
 		if (game.getPlayer1().getId() != this.id && game.getPlayer2() == null) {
 			game.setPlayer2(this);
-			//setGame(game);
 			//game.launch();
 		}
 	}
