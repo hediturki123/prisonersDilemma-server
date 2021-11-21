@@ -41,7 +41,6 @@ public class Player {
 	public Game createGame(int nbTurns) {
 		Game game = new Game(nbTurns);
 		game.setPlayer1(this); 
-		RestServer.addGame(game);
 		return game;
 	}
 	

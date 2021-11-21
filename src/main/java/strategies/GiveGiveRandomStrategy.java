@@ -36,7 +36,7 @@ public final class GiveGiveRandomStrategy implements Strategy {
 			else {
 				Game game = RestServer.getGames().get(index);
 				List<Round> rounds = RestServer.getGames().get(index).getHistory();
-				if(rounds != null) {
+				if(rounds != null && rounds.size() > 0) {
 					Round lastRound = rounds.get(rounds.size() - 1);
 					if (player.getId() == game.getPlayer1().getId()) {
 						player.setCurrentDecision(lastRound.getMovePlayer2());			

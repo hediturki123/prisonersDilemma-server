@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.example.RestServer;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,6 +32,7 @@ public class Game {
 	public Game(int nbTurns) {
 		this.id = staticId++;
 		setNbTurns(nbTurns);
+		RestServer.addGame(this);
 		this.history = new ArrayList<>();
 	}
 	
