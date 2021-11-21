@@ -38,7 +38,6 @@ class PlayerTest {
 		assertEquals(true, player.getCurrentDecision() == Decision.BETRAY);
 	}
 	
-	//Not really useful to test since it's random and we can't predict this strategy action
 	@Test
 	void testActionGIVEUPGiveGiveRandom() {
 		Game game = player.createGame(10);

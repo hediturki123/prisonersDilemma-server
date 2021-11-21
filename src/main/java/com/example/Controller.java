@@ -84,7 +84,7 @@ public class Controller {
 		player.setScore(newPlayer.getScore());
 		player.setCurrentDecision(newPlayer.getCurrentDecision());
 		player.action(newPlayer.getCurrentDecision(), 0);
-		if (game.getPlayer1().getCurrentDecision() != null && game.getPlayer2().getCurrentDecision() != null) {
+		if (game.getPlayer1().getCurrentDecision() != null && game.getPlayer2() != null && game.getPlayer2().getCurrentDecision() != null) {
 			game.launch();
 		}
 		return ResponseEntity.ok(player);			
