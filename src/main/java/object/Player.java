@@ -1,15 +1,13 @@
 package object;
 
-import com.example.RestServer;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import strategies.BetrayStrategy;
-import strategies.CooperateStrategy;
 import strategies.GiveGiveRandomStrategy;
 import strategies.GiveGiveStrategy;
-import strategies.Strategy;
+import strategies.StrategyHedi;
 
 @Getter
 @Setter
@@ -23,7 +21,7 @@ public class Player {
 	private int score;
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
-	private Strategy strategy;
+	private StrategyHedi strategy;
 	
 	private Decision currentDecision;
 	
@@ -63,7 +61,7 @@ public class Player {
 						this.strategy = new GiveGiveRandomStrategy();
 						break;
 					case 3:
-						this.strategy = new CooperateStrategy();
+						//this.strategy = new CooperateStrategy();
 						break;
 					case 4:
 						this.strategy = new BetrayStrategy();
@@ -75,5 +73,20 @@ public class Player {
 			strategy.action(this);
 		}
 	}
+	
+//	public void sendSseEventsToUi(boolean notification) {
+//		 List<SseEmitter> sseEmitterListToRemove = new ArrayList<>();
+//		 Controller.emitters.forEach((SseEmitter emitter) -> {
+//	            try {
+//	                emitter.send(notification, MediaType.APPLICATION_JSON);
+//	            } catch (IOException e) {
+//	                emitter.complete();
+//	                sseEmitterListToRemove.add(emitter);
+//	                e.printStackTrace();
+//	            }
+//	        });
+//		 	System.out.println("---------------------------------------------->" + Controller.emitters);
+//	        Controller.emitters.removeAll(sseEmitterListToRemove);
+//	}
 	
 }

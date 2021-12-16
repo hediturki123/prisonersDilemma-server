@@ -1,6 +1,9 @@
 package com.example;
 
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import object.Game;
 import object.Player;
@@ -33,17 +37,6 @@ public class Controller {
 		Player player2 = new Player();
 		Game game = findGameById(id);
 		player2.joinGame(game);
-		return ResponseEntity.ok(game);
-	}
-	
-	@PutMapping("/game/{idGame}/{currentRound}")
-	public ResponseEntity<Game> updateGame(@PathVariable(name = "idGame") int id, @PathVariable(name = "currentRound") int currentRound, @RequestBody Game newGame) {
-		Game game = findGameById(id);
-		game.setCurrentRound(newGame.getCurrentRound());
-		game.setNbTurns(newGame.getNbTurns());
-		game.setPlayer1(newGame.getPlayer1());
-		game.setPlayer2(newGame.getPlayer2());
-		game.setHistory(newGame.getHistory());
 		return ResponseEntity.ok(game);
 	}
 	
@@ -83,10 +76,12 @@ public class Controller {
 		Player player = game.findPlayerById(idPlayer);
 		player.setScore(newPlayer.getScore());
 		player.setCurrentDecision(newPlayer.getCurrentDecision());
+		player.setHavePlayed(newPlayer.isHavePlayed());
 		player.action(newPlayer.getCurrentDecision(), 0);
 		if (game.getPlayer1().getCurrentDecision() != null && game.getPlayer2() != null && game.getPlayer2().getCurrentDecision() != null) {
 			game.launch();
 		}
+		//player.sendSseEventsToUi(player.isHavePlayed());
 		return ResponseEntity.ok(player);			
 	}
 	
@@ -101,4 +96,28 @@ public class Controller {
 		Game game = findGameById(idGame);
 		return ResponseEntity.ok(game.allPlayers());
 	}
+	
+//	@GetMapping("/game/createSseEmitter")
+//	public SseEmitter handle() {
+//		return new SseEmitter();
+//	}
+	
+	@GetMapping("/game/waitPlayer/idGame={idGame}")
+	public SseEmitter waitPlayer(@PathVariable(name = "idGame")int idGame) {
+		Game game = findGameById(idGame);
+		SseEmitter emitter = new SseEmitter();
+		try {
+			emitter.send(game);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//emitter.complete();
+		return emitter;
+	}
+	
+	@GetMapping("/game/waitOtherPlayer/idGame={idGame}")
+	public SseEmitter waitOtherPlayer(@PathVariable(name = "idGame")int idGame) {
+		return null;
+	}
+	
 }

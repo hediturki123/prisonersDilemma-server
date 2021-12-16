@@ -19,13 +19,13 @@ class CooperateStrategyTest {
 	
 	@Test
 	void testActionCOOPERATE() {
-		player.action(Decision.COOPERATE,0);
+		player.action(Decision.COOPERATE, 0);
 		assertEquals(true, player.getCurrentDecision() == Decision.COOPERATE);
 	}
 
 	@Test
 	void testActionNotCOOPERATE() {
-		player.action(Decision.COOPERATE,0);
+		player.action(Decision.COOPERATE, 0);
 		assertEquals(true, player.getCurrentDecision() != Decision.BETRAY && player.getCurrentDecision() != Decision.GIVEUP);
 	}
 }

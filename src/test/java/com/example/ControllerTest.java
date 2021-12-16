@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import object.Decision;
 import object.Game;
 import object.Player;
+import object.Round;
 
 @SpringBootTest
 class ControllerTest {
@@ -102,5 +103,31 @@ class ControllerTest {
 		assertEquals(newPlayer.getScore(), updatePlayer.getBody().getScore());
 		assertEquals(newPlayer.getCurrentDecision(), updatePlayer.getBody().getCurrentDecision());
 	}
+	
+	@Test
+	void readAllPlayersTest() {
+		ResponseEntity<Game> createGame = controller.createGame(10);
+		ResponseEntity<Game> joinGame = controller.joinGame(createGame.getBody().getId());
+		ResponseEntity<Game> readGame = controller.readGame(joinGame.getBody().getId());
+		ResponseEntity<List<Player>> readAllPlayers = controller.readAllPlayers(createGame.getBody().getId());
+		assertEquals(readAllPlayers.getBody().get(0), readGame.getBody().allPlayers().get(0));
+	}
 
+	@Test
+	void readAllRoundsTest() {
+		ResponseEntity<Game> createGame = controller.createGame(10);
+		ResponseEntity<Game> joinGame = controller.joinGame(createGame.getBody().getId());
+		ResponseEntity<Game> readGame = controller.readGame(joinGame.getBody().getId());
+		ResponseEntity<List<Round>> readAllRounds = controller.readAllRounds(createGame.getBody().getId());
+		readGame.getBody().getPlayer1().setCurrentDecision(Decision.COOPERATE);
+		readGame.getBody().getPlayer2().setCurrentDecision(Decision.COOPERATE);
+		readGame.getBody().launch();
+		assertEquals(readAllRounds.getBody().get(0), readGame.getBody().getHistory().get(0));
+	}
+	
+	@Test
+	void readLastGame() {
+		ResponseEntity<Game> readLastGame = controller.readLastGame();
+		assertEquals(RestServer.getGames().get(RestServer.getGames().size() - 1).getId(), readLastGame.getBody().getId());
+	}
 }

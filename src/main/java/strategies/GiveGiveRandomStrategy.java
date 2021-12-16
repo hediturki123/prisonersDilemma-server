@@ -10,7 +10,7 @@ import object.Game;
 import object.Player;
 import object.Round;
 
-public final class GiveGiveRandomStrategy implements Strategy {
+public final class GiveGiveRandomStrategy implements StrategyHedi {
 
 	Random random = new Random();
 	
@@ -36,7 +36,7 @@ public final class GiveGiveRandomStrategy implements Strategy {
 			else {
 				Game game = RestServer.getGames().get(index);
 				List<Round> rounds = RestServer.getGames().get(index).getHistory();
-				if(rounds != null && rounds.size() > 0) {
+				if(rounds != null && !rounds.isEmpty()) {
 					Round lastRound = rounds.get(rounds.size() - 1);
 					if (player.getId() == game.getPlayer1().getId()) {
 						player.setCurrentDecision(lastRound.getMovePlayer2());			

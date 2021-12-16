@@ -2,7 +2,7 @@ package strategies;
 
 import object.Player;
 
-public interface Strategy {
+public interface StrategyHedi {
 	
 	public void action(Player player);	
 
