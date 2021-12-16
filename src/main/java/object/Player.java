@@ -7,7 +7,7 @@ import lombok.Setter;
 import strategies.BetrayStrategy;
 import strategies.GiveGiveRandomStrategy;
 import strategies.GiveGiveStrategy;
-import strategies.StrategyHedi;
+import strategies.StrategyHediAndPierre;
 
 @Getter
 @Setter
@@ -21,7 +21,7 @@ public class Player {
 	private int score;
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
-	private StrategyHedi strategy;
+	private StrategyHediAndPierre strategy;
 	
 	private Decision currentDecision;
 	

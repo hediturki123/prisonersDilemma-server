@@ -10,7 +10,7 @@ import object.Game;
 import object.Player;
 import object.Round;
 
-public final class GiveGiveRandomStrategy implements StrategyHedi {
+public final class GiveGiveRandomStrategy implements StrategyHediAndPierre {
 
 	Random random = new Random();
 	

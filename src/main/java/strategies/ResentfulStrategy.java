@@ -9,7 +9,7 @@ import object.Game;
 import object.Player;
 import object.Round;
 
-public class ResentfulStrategy implements Strategy {
+public class ResentfulStrategy implements StrategyHediAndPierre {
 	
 	@Override
 	public void action(Player player) {

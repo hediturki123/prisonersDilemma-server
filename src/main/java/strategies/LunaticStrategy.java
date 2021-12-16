@@ -4,7 +4,7 @@ import java.util.Random;
 import object.Decision;
 import object.Player;
 
-public class LunaticStrategy implements Strategy{
+public class LunaticStrategy implements StrategyHediAndPierre {
 
 	@Override
 	public void action(Player player) {
@@ -16,4 +16,5 @@ public class LunaticStrategy implements Strategy{
 			player.setCurrentDecision(Decision.BETRAY);
 		}
 	}
+
 }

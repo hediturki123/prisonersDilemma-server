@@ -9,7 +9,7 @@ import object.Game;
 import object.Player;
 import object.Round;
 
-public final class GiveGiveStrategy implements StrategyHedi {
+public final class GiveGiveStrategy implements StrategyHediAndPierre {
 
     @Override
 	public void action(Player player) {

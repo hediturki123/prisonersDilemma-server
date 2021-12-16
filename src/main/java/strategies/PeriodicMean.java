@@ -9,7 +9,7 @@ import object.Game;
 import object.Player;
 import object.Round;
 
-public class PeriodicMean implements Strategy {
+public class PeriodicMean implements StrategyHediAndPierre {
 
 	@Override
 	public void action(Player player) {
