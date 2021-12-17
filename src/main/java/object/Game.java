@@ -40,9 +40,19 @@ public class Game {
 	public Game(int nbTurns) {
 		this.id = staticId++;
 		setNbTurns(nbTurns);
+		this.currentRound = 1;
 		RestServer.addGame(this);
 		this.history = new ArrayList<>();
 		this.sseEmitter = new SseEmitter();	
+	}
+	
+	public Game() {
+		this.id = 0;
+		setNbTurns(0);
+		this.currentRound = 1;
+		RestServer.addGame(this);
+		this.history = new ArrayList<>();
+		this.sseEmitter = new SseEmitter();		
 	}
 	
 	public void calculateScore(Round round) {
@@ -84,12 +94,6 @@ public class Game {
 			round = new Round();
 			round.playRound(this);
 			calculateScore(round);
-			try {
-				sseEmitter.send(this.player1.isHavePlayed());
-				sseEmitter.send(this.player2.isHavePlayed());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 			history.add(round);
 		}
 	}

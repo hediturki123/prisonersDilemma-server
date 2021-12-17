@@ -46,6 +46,23 @@ public class Controller {
 		return ResponseEntity.ok(game);
 	}
 	
+	@PutMapping("/game/{idGame}/update")
+	public ResponseEntity<Game> updateGame(@PathVariable(name = "idGame") int idGame,
+			@RequestBody Game newGame) {
+		Game game = findGameById(idGame);
+		game.setId(newGame.getId());
+		game.setNbTurns(newGame.getNbTurns());
+		game.setCurrentRound(newGame.getCurrentRound());
+		game.setHistory(newGame.getHistory());
+		game.setPlayer1(newGame.getPlayer1());
+		game.setPlayer2(newGame.getPlayer2());
+		if (game.getPlayer1().getCurrentDecision() != null && game.getPlayer2() != null && game.getPlayer2().getCurrentDecision() != null) {
+			game.launch();
+		}
+		return ResponseEntity.ok(game);
+	}
+	
+	
 	@GetMapping("game/lastGame")
 	public ResponseEntity<Game> readLastGame() {
 		return ResponseEntity.ok(RestServer.getGames().get(RestServer.getGames().size() - 1));
@@ -73,15 +90,47 @@ public class Controller {
 	public ResponseEntity<Player> updatePlayer(@PathVariable(name = "idGame") int idGame, 
 			@PathVariable(name = "idPlayer") int idPlayer, @RequestBody Player newPlayer) {
 		Game game = findGameById(idGame);
+		System.out.println(game.getId()+"");
 		Player player = game.findPlayerById(idPlayer);
-		player.setScore(newPlayer.getScore());
-		player.setCurrentDecision(newPlayer.getCurrentDecision());
+		//player.setScore(newPlayer.getScore());
+		//player.setCurrentDecision(newPlayer.getCurrentDecision());
 		player.setHavePlayed(newPlayer.isHavePlayed());
 		player.action(newPlayer.getCurrentDecision(), 0);
+		
+		if(game.getPlayer1().getId() == player.getId()) {			
+			game.setPlayer1(player);
+		} else {
+			game.setPlayer2(player);
+		}
 		if (game.getPlayer1().getCurrentDecision() != null && game.getPlayer2() != null && game.getPlayer2().getCurrentDecision() != null) {
 			game.launch();
 		}
-		//player.sendSseEventsToUi(player.isHavePlayed());
+		try {
+			if(player.getId() == game.getPlayer1().getId()) {
+				System.out.println("game.getPlayer2().sseEmitter.send(game)");
+				game.getPlayer2().sseEmitter.send(game);
+			}
+			if(player.getId() == game.getPlayer2().getId()) {
+				System.out.println("game.getPlayer1().sseEmitter.send(game)");
+				game.getPlayer1().sseEmitter.send(game);
+			}
+		} catch (IOException e) {
+			if(player.getId() == game.getPlayer1().getId()) {
+				System.out.println("game.getPlayer2().sseEmitter.completeWithError(e)");
+				game.getPlayer2().sseEmitter.completeWithError(e);
+			}
+			if(player.getId() == game.getPlayer2().getId()) {
+				System.out.println("game.getPlayer1().sseEmitter.completeWithError(e)");
+				game.getPlayer1().sseEmitter.completeWithError(e);
+			}
+			e.printStackTrace();
+		}
+//		if(player.getId() == game.getPlayer1().getId()) {
+//			game.getPlayer2().sseEmitter.complete();
+//		}
+//		if(player.getId() == game.getPlayer2().getId()) {
+//			game.getPlayer1().sseEmitter.complete();
+//		}
 		return ResponseEntity.ok(player);			
 	}
 	
@@ -97,27 +146,38 @@ public class Controller {
 		return ResponseEntity.ok(game.allPlayers());
 	}
 	
-//	@GetMapping("/game/createSseEmitter")
-//	public SseEmitter handle() {
-//		return new SseEmitter();
-//	}
-	
-	@GetMapping("/game/waitPlayer/idGame={idGame}")
-	public SseEmitter waitPlayer(@PathVariable(name = "idGame")int idGame) {
+	@GetMapping("/game/waitOtherPlayer/idGame={idGame}/idPlayer={idPlayer}")
+	public SseEmitter waitOtherPlayer(@PathVariable(name = "idGame")int idGame,
+			@PathVariable(name = "idPlayer")int idPlayer) {
 		Game game = findGameById(idGame);
-		SseEmitter emitter = new SseEmitter();
-		try {
-			emitter.send(game);
-		} catch (IOException e) {
-			e.printStackTrace();
+		System.out.println("coucou");
+		SseEmitter emitter = new SseEmitter((long)86400000);
+		if (game.getPlayer1().getId() == idPlayer) {	
+			if(game.getPlayer1().sseEmitter == null) {
+				game.getPlayer1().sseEmitter = emitter;
+			}
+		} else {
+			if(game.getPlayer2().sseEmitter == null) {
+				game.getPlayer2().sseEmitter = emitter;	
+			}
 		}
-		//emitter.complete();
+		
+		emitter.onCompletion(() ->
+			System.out.println("oui")
+			//log.info(() -> String.format("SSE emitter of '%s' is completed. %n", role))
+		);
+		emitter.onTimeout(() -> {
+			System.out.println("non");
+			//log.warning(() -> String.format("SSE emitter of '%s' timed out%n", role));
+			emitter.complete();
+		});
+		emitter.onError(ex -> {
+			System.out.println("peut-être");
+			//log.severe(() -> String.format("SSE emitter of '%s' got an error : %s%n", role, ex));
+			emitter.complete();
+		});
+		
 		return emitter;
-	}
-	
-	@GetMapping("/game/waitOtherPlayer/idGame={idGame}")
-	public SseEmitter waitOtherPlayer(@PathVariable(name = "idGame")int idGame) {
-		return null;
 	}
 	
 }

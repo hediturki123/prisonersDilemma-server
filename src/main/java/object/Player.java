@@ -1,6 +1,8 @@
 package object;
 
 
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +31,9 @@ public class Player {
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
 	private boolean hasLeftTheGame;
+	@Getter(AccessLevel.NONE)
+	@Setter(AccessLevel.NONE)
+	public SseEmitter sseEmitter;
 	
 	public Player() {
 		this.id = staticId++;
@@ -73,6 +78,7 @@ public class Player {
 			strategy.action(this);
 		}
 	}
+	
 	
 //	public void sendSseEventsToUi(boolean notification) {
 //		 List<SseEmitter> sseEmitterListToRemove = new ArrayList<>();
