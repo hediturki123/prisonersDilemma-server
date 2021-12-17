@@ -53,22 +53,22 @@ class PlayerTest {
 		assertEquals(true, player.getCurrentDecision() !=  Decision.GIVEUP);
 	}
 	
-//	@Test
-//	void testActionGIVEUPCooperate() {
-//		Game game = player.createGame(10);
-//		Player player2 = new Player();
-//		player2.joinGame(game);
-//		
-//		Round round = new Round();
-//		round.setMovePlayer2(Decision.COOPERATE);
-//		round.setMovePlayer1(Decision.COOPERATE);
-//		
-//		List<Round> list = new ArrayList<>();
-//		list.add(round);
-//		game.setHistory(list);
-//		player.action(Decision.GIVEUP,3);
-//		assertEquals(true, player.getCurrentDecision() ==  Decision.COOPERATE);
-//	}
+	@Test
+	void testActionGIVEUPCooperate() {
+		Game game = player.createGame(10);
+		Player player2 = new Player();
+		player2.joinGame(game);
+		
+		Round round = new Round();
+		round.setMovePlayer2(Decision.COOPERATE);
+		round.setMovePlayer1(Decision.COOPERATE);
+		
+		List<Round> list = new ArrayList<>();
+		list.add(round);
+		game.setHistory(list);
+		player.action(Decision.GIVEUP,3);
+		assertEquals(true, player.getCurrentDecision() ==  Decision.COOPERATE);
+	}
 	
 	@Test
 	void testActionGIVEUPBetray() {

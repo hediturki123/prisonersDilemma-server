@@ -6,10 +6,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import strategies.BetrayStrategy;
-import strategies.GiveGiveRandomStrategy;
-import strategies.GiveGiveStrategy;
-import strategies.StrategyHediAndPierre;
+import strategies.*;
 
 @Getter
 @Setter
@@ -57,6 +54,7 @@ public class Player {
 		if(strategyCode == 0) {
 			this.currentDecision = decision;
 		} else {
+			Strategy strategy = null;
 			if(decision == Decision.GIVEUP) {
 				switch(strategyCode) {
 					case 1:
@@ -66,16 +64,42 @@ public class Player {
 						this.strategy = new GiveGiveRandomStrategy();
 						break;
 					case 3:
-						//this.strategy = new CooperateStrategy();
+						this.strategy = new CooperateStrategy();
 						break;
 					case 4:
 						this.strategy = new BetrayStrategy();
+						break;
+					case 5:
+						this.strategy = new LunaticStrategy();
+						break;
+					case 6:
+						this.strategy = new PeriodicKind();
+						break;
+					case 7:
+						this.strategy = new PeriodicMean();
+						break;
+					case 8:
+						this.strategy = new ResentfulStrategy();
+						break;
+					case 9:
+						strategy = new AlwaysCollaborate();
+						break;
+					case 10:
+						strategy = new AlwaysBetray();
+						break;
+					case 11:
+						strategy = new GiveGive();
 						break;
 					default : 
 						break;
 				}
 			}
-			strategy.action(this);
+			if(this.strategy != null) {
+				this.strategy.action(this);
+			}else {
+				StrategyAdaptor strat = new StrategyAdaptor();
+				strat.execute(this, strategy);
+			}
 		}
 	}
 	
