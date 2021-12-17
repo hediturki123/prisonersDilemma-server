@@ -1,4 +1,4 @@
-package strategies;
+package strategiesHediAndPierre;
 
 import object.Decision;
 import object.Player;
@@ -6,8 +6,9 @@ import object.Player;
 public class BetrayStrategy implements StrategyHediAndPierre {
 	
 	@Override
-	public void action(Player player) {
+	public Decision action(Player player) {
 		player.setCurrentDecision(Decision.BETRAY);
+		return Decision.BETRAY;
 	}
 
 }

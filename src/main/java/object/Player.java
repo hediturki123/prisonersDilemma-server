@@ -6,7 +6,11 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import strategies.*;
+import strategies.AlwaysBetray;
+import strategies.AlwaysCollaborate;
+import strategies.GiveGive;
+import strategies.Strategy;
+import strategiesHediAndPierre.*;
 
 @Getter
 @Setter
