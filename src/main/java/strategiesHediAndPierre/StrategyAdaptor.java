@@ -1,4 +1,4 @@
-package strategies;
+package strategiesHediAndPierre;
 
 import java.util.List;
 
@@ -8,6 +8,8 @@ import object.Decision;
 import object.Game;
 import object.Player;
 import object.Round;
+import strategies.Action;
+import strategies.Strategy;
 
 public class StrategyAdaptor {
 
@@ -33,15 +35,37 @@ public class StrategyAdaptor {
 				Round lastRound = rounds.get(rounds.size() - 1);
 				if (player.getId() == game.getPlayer1().getId()) {
 					if(lastRound.getMovePlayer2() == Decision.COOPERATE)
-						strat.askAction(Action.COLLABORER);
-					else
-						strat.askAction(Action.TRAHIR);
+					{
+						if(strat.askAction(Action.COLLABORER) == Action.COLLABORER) {
+							player.setCurrentDecision(Decision.COOPERATE);
+						}else {
+							player.setCurrentDecision(Decision.BETRAY);
+						}
+					}
+					else {
+						if(strat.askAction(Action.TRAHIR) == Action.COLLABORER) {
+							player.setCurrentDecision(Decision.COOPERATE);
+						}else {
+							player.setCurrentDecision(Decision.BETRAY);
+						}
+					}
 				}
 				if (player.getId() == game.getPlayer2().getId()) {
 					if(lastRound.getMovePlayer1() == Decision.COOPERATE)
-						strat.askAction(Action.COLLABORER);
-					else
-						strat.askAction(Action.TRAHIR);
+					{
+						if(strat.askAction(Action.COLLABORER) == Action.COLLABORER) {
+							player.setCurrentDecision(Decision.COOPERATE);
+						}else {
+							player.setCurrentDecision(Decision.BETRAY);
+						}
+					}
+					else {
+						if(strat.askAction(Action.TRAHIR) == Action.COLLABORER) {
+							player.setCurrentDecision(Decision.COOPERATE);
+						}else {
+							player.setCurrentDecision(Decision.BETRAY);
+						}
+					}
 				}
 			}
 		}

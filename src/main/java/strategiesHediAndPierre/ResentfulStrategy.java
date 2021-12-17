@@ -1,4 +1,4 @@
-package strategies;
+package strategiesHediAndPierre;
 
 import java.util.List;
 
@@ -9,10 +9,10 @@ import object.Game;
 import object.Player;
 import object.Round;
 
-public class PeriodicKind implements StrategyHediAndPierre {
-
+public class ResentfulStrategy implements StrategyHediAndPierre {
+	
 	@Override
-	public void action(Player player) {
+	public Decision action(Player player) {
     	int index = 0;
     	if(RestServer.getGames().get(index).getPlayer2() != null)
     	{
@@ -25,33 +25,32 @@ public class PeriodicKind implements StrategyHediAndPierre {
     		}
     	}
 		
-		if(index == RestServer.getGames().size()) {
-			player.setCurrentDecision(Decision.COOPERATE);
-		} else {
+    	player.setCurrentDecision(Decision.COOPERATE);
+		if(index != RestServer.getGames().size()) {
 			Game game = RestServer.getGames().get(index);
 			List<Round> rounds = game.getHistory();
-			if(rounds != null && rounds.size() > 1) {
-				Round lastRound = rounds.get(rounds.size() - 1);
-				Round antepenultimateRound = rounds.get(rounds.size() - 2);
+			if(rounds != null && rounds.size() > 0) {
+				int indexRound = 0;
 				if (player.getId() == game.getPlayer1().getId()) {
-					if(lastRound.getMovePlayer1() == Decision.COOPERATE
-							&& antepenultimateRound.getMovePlayer1() == Decision.COOPERATE) {
+					while(indexRound < rounds.size() && rounds.get(indexRound).getMovePlayer2() != Decision.BETRAY) {
+						indexRound++;
+					}
+					if(indexRound != rounds.size()) {
 						player.setCurrentDecision(Decision.BETRAY);
-					}else {
-						player.setCurrentDecision(Decision.COOPERATE);
+						return Decision.BETRAY;
 					}
 				}
 				if (player.getId() == game.getPlayer2().getId()) {
-					if(lastRound.getMovePlayer2() == Decision.COOPERATE
-							&& antepenultimateRound.getMovePlayer2() == Decision.COOPERATE) {
+					while(indexRound < rounds.size() && rounds.get(indexRound).getMovePlayer1() != Decision.BETRAY) {
+						indexRound++;
+					}
+					if(indexRound != rounds.size()) {
 						player.setCurrentDecision(Decision.BETRAY);
-					}else {
-						player.setCurrentDecision(Decision.COOPERATE);
+						return Decision.BETRAY;
 					}
 				}
-			}else {
-				player.setCurrentDecision(Decision.COOPERATE);
 			}
 		}
+		return Decision.COOPERATE;
 	}
 }

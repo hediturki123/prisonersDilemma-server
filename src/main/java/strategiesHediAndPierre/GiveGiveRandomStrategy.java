@@ -1,4 +1,4 @@
-package strategies;
+package strategiesHediAndPierre;
 
 import java.util.List;
 import java.util.Random;
@@ -15,14 +15,16 @@ public final class GiveGiveRandomStrategy implements StrategyHediAndPierre {
 	Random random = new Random();
 	
 	@Override
-	public void action(Player player) {
+	public Decision action(Player player) {
 		boolean isDecisionRandom = (1 + random.nextInt(100)) > 80; // int between 1 and 100
 		if (isDecisionRandom) {
 			boolean isRandomDecisionCooperate = random.nextBoolean();
 			if(isRandomDecisionCooperate) {	
 				player.setCurrentDecision(Decision.COOPERATE);
+				return Decision.COOPERATE;
 			} else {
 				player.setCurrentDecision(Decision.BETRAY);
+				return Decision.BETRAY;
 			}
 		}
 		else {
@@ -32,6 +34,7 @@ public final class GiveGiveRandomStrategy implements StrategyHediAndPierre {
 			}
 			if(index == RestServer.getGames().size()) {
 				player.setCurrentDecision(Decision.COOPERATE);
+				return Decision.COOPERATE;
 			}
 			else {
 				Game game = RestServer.getGames().get(index);
@@ -39,13 +42,16 @@ public final class GiveGiveRandomStrategy implements StrategyHediAndPierre {
 				if(rounds != null && !rounds.isEmpty()) {
 					Round lastRound = rounds.get(rounds.size() - 1);
 					if (player.getId() == game.getPlayer1().getId()) {
-						player.setCurrentDecision(lastRound.getMovePlayer2());			
+						player.setCurrentDecision(lastRound.getMovePlayer2());
+						return lastRound.getMovePlayer2();
 					}
 					if (player.getId() == game.getPlayer2().getId()) {
 						player.setCurrentDecision(lastRound.getMovePlayer1());
+						return lastRound.getMovePlayer1();
 					}
 				}
 			}
+			return Decision.COOPERATE;
 		}
 	}
 
