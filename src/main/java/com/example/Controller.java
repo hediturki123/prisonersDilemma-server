@@ -2,8 +2,6 @@ package com.example;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -96,10 +94,7 @@ public class Controller {
 	public ResponseEntity<Player> updatePlayer(@PathVariable(name = "idGame") int idGame, 
 			@PathVariable(name = "idPlayer") int idPlayer, @RequestBody Player newPlayer) {
 		Game game = findGameById(idGame);
-		System.out.println(game.getId()+"");
 		Player player = game.findPlayerById(idPlayer);
-		//player.setScore(newPlayer.getScore());
-		//player.setCurrentDecision(newPlayer.getCurrentDecision());
 		player.setHavePlayed(newPlayer.isHavePlayed());
 		player.action(newPlayer.getCurrentDecision(), 0);
 		
@@ -116,11 +111,9 @@ public class Controller {
 			game.getPlayer1().sseEmitter.send(game);
 		} catch (IOException e) {
 			if(player.getId() == game.getPlayer1().getId()) {
-				System.out.println("game.getPlayer2().sseEmitter.completeWithError(e)");
 				game.getPlayer2().sseEmitter.completeWithError(e);
 			}
 			if(player.getId() == game.getPlayer2().getId()) {
-				System.out.println("game.getPlayer1().sseEmitter.completeWithError(e)");
 				game.getPlayer1().sseEmitter.completeWithError(e);
 			}
 			e.printStackTrace();
@@ -144,7 +137,6 @@ public class Controller {
 	public SseEmitter waitOtherPlayer(@PathVariable(name = "idGame")int idGame,
 			@PathVariable(name = "idPlayer")int idPlayer) {
 		Game game = findGameById(idGame);
-		System.out.println("coucou");
 		SseEmitter emitter = new SseEmitter((long)86400000);
 		if (game.getPlayer1().getId() == idPlayer) {	
 			if(game.getPlayer1().sseEmitter == null) {
@@ -157,17 +149,12 @@ public class Controller {
 		}
 		
 		emitter.onCompletion(() ->
-			System.out.println("oui")
-			//log.info(() -> String.format("SSE emitter of '%s' is completed. %n", role))
+			System.out.println("")
 		);
 		emitter.onTimeout(() -> {
-			System.out.println("non");
-			//log.warning(() -> String.format("SSE emitter of '%s' timed out%n", role));
 			emitter.complete();
 		});
 		emitter.onError(ex -> {
-			System.out.println("peut-être");
-			//log.severe(() -> String.format("SSE emitter of '%s' got an error : %s%n", role, ex));
 			emitter.complete();
 		});
 		

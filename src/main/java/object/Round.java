@@ -1,6 +1,5 @@
 package object;
 
-import java.io.IOException;
 
 import lombok.Getter;
 import lombok.Setter;
