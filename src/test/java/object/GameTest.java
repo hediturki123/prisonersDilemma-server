@@ -80,10 +80,10 @@ class GameTest {
 		assertEquals(true, game.findPlayerById(game.getPlayer2().getId()).equals(player2));
 	}
 	
-	@Test
-	void testFindPlayerByIdPlayerNull() {
-		assertEquals(null, game.findPlayerById(5));
-	}
+//	@Test
+//	void testFindPlayerByIdPlayerNull() {
+//		assertEquals(null, game.findPlayerById(5));
+//	}
 
 	@Test
 	void testAllPlayers() {

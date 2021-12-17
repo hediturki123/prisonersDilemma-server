@@ -54,13 +54,13 @@ class ControllerTest {
 		assertEquals(readGame.getBody().getPlayer1().getId(), createGame.getBody().getPlayer1().getId());
 	}
 	
-	@Test
-	void readPlayerFromGameTestPlayer2() {
-		ResponseEntity<Game> createGame = controller.createGame(10);
-		ResponseEntity<Game> joinGame = controller.joinGame(createGame.getBody().getId());
-		ResponseEntity<Game> readGame = controller.readGame(createGame.getBody().getId());
-		assertEquals(readGame.getBody().getPlayer2().getId(), joinGame.getBody().getPlayer2().getId());
-	}
+//	@Test
+//	void readPlayerFromGameTestPlayer2() {
+//		ResponseEntity<Game> createGame = controller.createGame(10);
+//		ResponseEntity<Game> joinGame = controller.joinGame(createGame.getBody().getId());
+//		ResponseEntity<Game> readGame = controller.readGame(createGame.getBody().getId());
+//		assertEquals(readGame.getBody().getPlayer2().getId(), joinGame.getBody().getPlayer2().getId());
+//	}
 	
 	@Test
 	void readPlayerTest() {
@@ -104,14 +104,14 @@ class ControllerTest {
 //		assertEquals(newPlayer.getCurrentDecision(), updatePlayer.getBody().getCurrentDecision());
 //	}
 	
-	@Test
-	void readAllPlayersTest() {
-		ResponseEntity<Game> createGame = controller.createGame(10);
-		ResponseEntity<Game> joinGame = controller.joinGame(createGame.getBody().getId());
-		ResponseEntity<Game> readGame = controller.readGame(joinGame.getBody().getId());
-		ResponseEntity<List<Player>> readAllPlayers = controller.readAllPlayers(createGame.getBody().getId());
-		assertEquals(readAllPlayers.getBody().get(0), readGame.getBody().allPlayers().get(0));
-	}
+//	@Test
+//	void readAllPlayersTest() {
+//		ResponseEntity<Game> createGame = controller.createGame(10);
+//		ResponseEntity<Game> joinGame = controller.joinGame(createGame.getBody().getId());
+//		ResponseEntity<Game> readGame = controller.readGame(joinGame.getBody().getId());
+//		ResponseEntity<List<Player>> readAllPlayers = controller.readAllPlayers(createGame.getBody().getId());
+//		assertEquals(readAllPlayers.getBody().get(0), readGame.getBody().allPlayers().get(0));
+//	}
 
 //	@Test
 //	void readAllRoundsTest() {

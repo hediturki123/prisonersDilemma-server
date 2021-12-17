@@ -37,6 +37,12 @@ public class Controller {
 		Player player2 = new Player();
 		Game game = findGameById(id);
 		player2.joinGame(game);
+		try {
+			game.getPlayer1().sseEmitter.send(game);
+		} catch (IOException e) {
+			game.getPlayer1().sseEmitter.completeWithError(e);
+			e.printStackTrace();
+		}
 		return ResponseEntity.ok(game);
 	}
 	
@@ -106,14 +112,8 @@ public class Controller {
 			game.launch();
 		}
 		try {
-			if(player.getId() == game.getPlayer1().getId()) {
-				System.out.println("game.getPlayer2().sseEmitter.send(game)");
-				game.getPlayer2().sseEmitter.send(game);
-			}
-			if(player.getId() == game.getPlayer2().getId()) {
-				System.out.println("game.getPlayer1().sseEmitter.send(game)");
-				game.getPlayer1().sseEmitter.send(game);
-			}
+			game.getPlayer2().sseEmitter.send(game);
+			game.getPlayer1().sseEmitter.send(game);
 		} catch (IOException e) {
 			if(player.getId() == game.getPlayer1().getId()) {
 				System.out.println("game.getPlayer2().sseEmitter.completeWithError(e)");
@@ -125,12 +125,6 @@ public class Controller {
 			}
 			e.printStackTrace();
 		}
-//		if(player.getId() == game.getPlayer1().getId()) {
-//			game.getPlayer2().sseEmitter.complete();
-//		}
-//		if(player.getId() == game.getPlayer2().getId()) {
-//			game.getPlayer1().sseEmitter.complete();
-//		}
 		return ResponseEntity.ok(player);			
 	}
 	

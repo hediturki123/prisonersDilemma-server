@@ -95,6 +95,14 @@ public class Game {
 			round.playRound(this);
 			calculateScore(round);
 			history.add(round);
+			try {
+				getPlayer2().sseEmitter.send(this);
+				getPlayer1().sseEmitter.send(this);
+			} catch (IOException e) {
+				getPlayer2().sseEmitter.completeWithError(e);
+				getPlayer1().sseEmitter.completeWithError(e);
+				e.printStackTrace();
+			}
 		}
 	}
 
