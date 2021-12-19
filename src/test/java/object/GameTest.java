@@ -33,6 +33,13 @@ class GameTest {
 	void testGameNbTurns() {
 		assertEquals(true, game.getNbTurns() == 10);
 	}
+	
+	@Test
+	void testConstructorGameNbTurns() {
+		Game gameTest = new Game();
+		assertEquals(true, gameTest.getNbTurns() == 0);
+		assertEquals(true, gameTest.getId() == 0);
+	}
 
 	@Test
 	void testCalculateScoreBothCooperate() {
