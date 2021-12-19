@@ -60,7 +60,7 @@ public class Player {
 		if(strategyCode == 0) {
 			this.currentDecision = decision;
 		} else {
-			Strategy strategy = null;
+			Strategy strategyRomainAndYann = null;
 			if(decision == Decision.GIVEUP) {
 				switch(strategyCode) {
 					case 1:
@@ -88,13 +88,13 @@ public class Player {
 						this.strategy = new ResentfulStrategy();
 						break;
 					case 9:
-						strategy = new AlwaysCollaborate();
+						strategyRomainAndYann = new AlwaysCollaborate();
 						break;
 					case 10:
-						strategy = new AlwaysBetray();
+						strategyRomainAndYann = new AlwaysBetray();
 						break;
 					case 11:
-						strategy = new GiveGive();
+						strategyRomainAndYann = new GiveGive();
 						break;
 					default : 
 						break;
@@ -104,7 +104,7 @@ public class Player {
 				this.strategy.action(this);
 			} else {
 				StrategyAdaptor strat = new StrategyAdaptor();
-				strat.execute(this, strategy);
+				strat.execute(this, strategyRomainAndYann);
 			}
 		}
 	}

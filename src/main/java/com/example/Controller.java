@@ -118,12 +118,8 @@ public class Controller {
 		emitter.onCompletion(() ->
 			System.out.println("")
 		);
-		emitter.onTimeout(() -> {
-			emitter.complete();
-		});
-		emitter.onError(ex -> {
-			emitter.complete();
-		});
+		emitter.onTimeout(emitter::complete);
+		emitter.onError(ex -> emitter.complete());
 		
 		return emitter;
 	}

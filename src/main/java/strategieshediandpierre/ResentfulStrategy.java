@@ -38,7 +38,7 @@ public class ResentfulStrategy implements StrategyHediAndPierre {
 		} else{
 			Game game = RestServer.getGames().get(index);
 			List<Round> rounds = game.getHistory();
-			if(rounds != null && rounds.size() > 0) {
+			if(rounds != null && rounds.isEmpty()) {
 				int indexRound = 0;
 				if (player.getId() == game.getPlayer1().getId()) {
 					while(indexRound < rounds.size() && rounds.get(indexRound).getMovePlayer2() != Decision.BETRAY) {

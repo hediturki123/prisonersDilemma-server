@@ -11,7 +11,7 @@ import game.Game;
 import game.Player;
 import game.Round;
 
-public class PeriodicMeanTest {
+class PeriodicMeanTest {
 
 	private Player player1;
 	private Player player2;
