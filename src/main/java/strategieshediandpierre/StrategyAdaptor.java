@@ -11,24 +11,15 @@ import game.Round;
 import strategies.Action;
 import strategies.Strategy;
 
-public class StrategyAdaptor {
+public class StrategyAdaptor extends StrategyHediAndPierreImpl{
 
 	public void execute(Player player, Strategy strat) {
-		int index = 0;
-    	if(RestServer.getGames().get(index).getPlayer2() != null) {
-    		while(index < RestServer.getGames().size() && RestServer.getGames().get(index).getPlayer1().getId() != player.getId() && RestServer.getGames().get(index).getPlayer2().getId() != player.getId()) {
-    			index++;
-    		}
-    	} else {
-    		while(index < RestServer.getGames().size() && RestServer.getGames().get(index).getPlayer1().getId() != player.getId()) {
-    			index++;
-    		}
-    	}
+		boolean isGameFound = searchGame(player);
 		
-		if(index == RestServer.getGames().size()) {
+		if(!isGameFound) {
 			strat.askAction(null);
 		} else {
-			Game game = RestServer.getGames().get(index);
+			Game game = RestServer.getGames().get(getIndex());
 			List<Round> rounds = game.getHistory();
 			
 			if(rounds != null && !rounds.isEmpty()) {
@@ -66,6 +57,13 @@ public class StrategyAdaptor {
 							player.action(Decision.BETRAY,0);
 						}
 					}
+				}
+			}
+			else {
+				if(strat.askAction(null) == Action.COLLABORER) {
+					player.action(Decision.COOPERATE,0);
+				} else {
+					player.action(Decision.BETRAY,0);
 				}
 			}
 		}
