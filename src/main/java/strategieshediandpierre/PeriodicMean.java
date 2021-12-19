@@ -9,34 +9,17 @@ import game.Game;
 import game.Player;
 import game.Round;
 
-public class PeriodicMean implements StrategyHediAndPierre {
+public class PeriodicMean extends StrategyHediAndPierreImpl implements StrategyHediAndPierre {
 
 	@Override
 	public Decision action(Player player) {
-		int index = 0;
-		boolean isGameFound = false;
-		while(index < RestServer.getGames().size() && !isGameFound)
-		{
-			if(RestServer.getGames().get(index).getPlayer2() != null 
-					&& (RestServer.getGames().get(index).getPlayer1().getId() == player.getId() 
-					|| RestServer.getGames().get(index).getPlayer2().getId() == player.getId()))
-			{
-				isGameFound = true;
-				index--;
-			}
-			else if(RestServer.getGames().get(index).getPlayer1().getId() == player.getId())
-			{
-				isGameFound = true;
-				index--;
-			}
-			index++;
-		}
+		boolean isGameFound = searchGame(player);
 		
 		if(!isGameFound) {
 			player.setCurrentDecision(Decision.COOPERATE);
 			return Decision.COOPERATE;
 		}else {
-			Game game = RestServer.getGames().get(index);
+			Game game = RestServer.getGames().get(getIndex());
 			List<Round> rounds = game.getHistory();
 			if(rounds != null && rounds.size() > 1) {
 				Round lastRound = rounds.get(rounds.size() - 1);

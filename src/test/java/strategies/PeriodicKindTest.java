@@ -11,7 +11,7 @@ import game.Game;
 import game.Player;
 import game.Round;
 
-public class PeriodicKindTest {
+class PeriodicKindTest {
 
 	private Player player1;
 	private Player player2;

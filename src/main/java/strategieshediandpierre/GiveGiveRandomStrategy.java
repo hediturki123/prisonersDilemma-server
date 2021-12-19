@@ -10,7 +10,7 @@ import game.Game;
 import game.Player;
 import game.Round;
 
-public final class GiveGiveRandomStrategy implements StrategyHediAndPierre {
+public final class GiveGiveRandomStrategy extends StrategyHediAndPierreImpl implements StrategyHediAndPierre {
 
 	Random random = new Random();
 	
@@ -28,32 +28,15 @@ public final class GiveGiveRandomStrategy implements StrategyHediAndPierre {
 			}
 		}
 		else {
-			int index = 0;
-			boolean isGameFound = false;
-			while(index < RestServer.getGames().size() && !isGameFound)
-			{
-				if(RestServer.getGames().get(index).getPlayer2() != null 
-						&& (RestServer.getGames().get(index).getPlayer1().getId() == player.getId() 
-						|| RestServer.getGames().get(index).getPlayer2().getId() == player.getId()))
-				{
-					isGameFound = true;
-					index--;
-				}
-				else if(RestServer.getGames().get(index).getPlayer1().getId() == player.getId())
-				{
-					isGameFound = true;
-					index--;
-				}
-				index++;
-			}
+			boolean isGameFound = searchGame(player);
 			
 			if(!isGameFound) {
 				player.setCurrentDecision(Decision.COOPERATE);
 				return Decision.COOPERATE;
 			}
 			else {
-				Game game = RestServer.getGames().get(index);
-				List<Round> rounds = RestServer.getGames().get(index).getHistory();
+				Game game = RestServer.getGames().get(getIndex());
+				List<Round> rounds = RestServer.getGames().get(getIndex()).getHistory();
 				if(rounds != null && !rounds.isEmpty()) {
 					Round lastRound = rounds.get(rounds.size() - 1);
 					if (player.getId() == game.getPlayer1().getId()) {

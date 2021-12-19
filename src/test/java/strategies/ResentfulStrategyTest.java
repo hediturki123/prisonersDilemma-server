@@ -11,7 +11,7 @@ import game.Game;
 import game.Player;
 import game.Round;
 
-public class ResentfulStrategyTest {
+class ResentfulStrategyTest {
 	
 	private Player player1;
 	private Player player2;
