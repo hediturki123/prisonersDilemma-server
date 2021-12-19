@@ -72,7 +72,57 @@ class PeriodicKindTest {
 		Round lastRound = game.getHistory().get(2);
 		assertEquals(true, lastRound.getMovePlayer2() == Decision.BETRAY);
 	}
+	
+	@Test
+	void testPlayer1Round3ActionStrategyPERIODICKIND() {
+		player1.action(Decision.GIVEUP, 6);
+		player2.action(Decision.COOPERATE, 0);
+		game.launch();
+		player1.action(Decision.GIVEUP, 6);
+		player2.action(Decision.COOPERATE, 0);
+		game.launch();
+		player1.action(Decision.GIVEUP, 6);
+		player2.action(Decision.COOPERATE, 0);
+		game.launch();
+		Round lastRound = game.getHistory().get(2);
+		assertEquals(true, lastRound.getMovePlayer1() == Decision.BETRAY);
+	}
 
+	@Test
+	void testPlayer1Round4ActionStrategyPERIODICKIND() {
+		player1.action(Decision.GIVEUP, 6);
+		player2.action(Decision.COOPERATE, 0);
+		game.launch();
+		player1.action(Decision.GIVEUP, 6);
+		player2.action(Decision.COOPERATE, 0);
+		game.launch();
+		player1.action(Decision.GIVEUP, 6);
+		player2.action(Decision.COOPERATE, 0);
+		game.launch();
+		player1.action(Decision.GIVEUP, 6);
+		player2.action(Decision.COOPERATE, 0);
+		game.launch();
+		Round lastRound = game.getHistory().get(3);
+		assertEquals(true, lastRound.getMovePlayer1() == Decision.COOPERATE);
+	}
+	
+	@Test
+	void testRound4ActionStrategyPERIODICKIND() {
+		player1.action(Decision.COOPERATE, 0);
+		player2.action(Decision.GIVEUP, 6);
+		game.launch();
+		player1.action(Decision.COOPERATE, 0);
+		player2.action(Decision.GIVEUP, 6);
+		game.launch();
+		player1.action(Decision.COOPERATE, 0);
+		player2.action(Decision.GIVEUP, 6);
+		game.launch();
+		player1.action(Decision.COOPERATE, 0);
+		player2.action(Decision.GIVEUP, 6);
+		game.launch();
+		Round lastRound = game.getHistory().get(3);
+		assertEquals(true, lastRound.getMovePlayer2() == Decision.COOPERATE);
+	}
 	
 	@Test
 	void testRound1ActionNotPERIODICKIND() {

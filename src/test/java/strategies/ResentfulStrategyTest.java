@@ -71,6 +71,21 @@ class ResentfulStrategyTest {
 	}
 	
 	@Test
+	void testPlayer1Round3WithOtherPlayerBetrayActionStrategyRESENTFUL() {
+		player1.action(Decision.GIVEUP, 8);
+		player2.action(Decision.COOPERATE, 0);
+		game.launch();
+		player1.action(Decision.GIVEUP, 8);
+		player2.action(Decision.BETRAY, 0);
+		game.launch();
+		player1.action(Decision.GIVEUP, 8);
+		player2.action(Decision.COOPERATE, 0);
+		game.launch();
+		Round lastRound = game.getHistory().get(2);
+		assertEquals(true, lastRound.getMovePlayer1() == Decision.BETRAY);
+	}
+	
+	@Test
 	void testRound3WithOtherPlayerBetrayActionStrategyRESENTFUL() {
 		player1.action(Decision.BETRAY, 0);
 		player2.action(Decision.GIVEUP, 8);

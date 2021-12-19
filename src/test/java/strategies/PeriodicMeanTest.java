@@ -73,6 +73,56 @@ class PeriodicMeanTest {
 		assertEquals(true, lastRound.getMovePlayer2() == Decision.COOPERATE);
 	}
 
+	@Test
+	void testPlayer1Round3ActionStrategyPERIODICMEAN() {
+		player1.action(Decision.GIVEUP, 7);
+		player2.action(Decision.COOPERATE, 0);
+		game.launch();
+		player1.action(Decision.GIVEUP, 7);
+		player2.action(Decision.COOPERATE, 0);
+		game.launch();
+		player1.action(Decision.GIVEUP, 7);
+		player2.action(Decision.COOPERATE, 0);
+		game.launch();
+		Round lastRound = game.getHistory().get(2);
+		assertEquals(true, lastRound.getMovePlayer1() == Decision.COOPERATE);
+	}
+
+	@Test
+	void testPlayer1Round4ActionStrategyPERIODICMEAN() {
+		player1.action(Decision.GIVEUP, 7);
+		player2.action(Decision.COOPERATE, 0);
+		game.launch();
+		player1.action(Decision.GIVEUP, 7);
+		player2.action(Decision.COOPERATE, 0);
+		game.launch();
+		player1.action(Decision.GIVEUP, 7);
+		player2.action(Decision.COOPERATE, 0);
+		game.launch();
+		player1.action(Decision.GIVEUP, 7);
+		player2.action(Decision.COOPERATE, 0);
+		game.launch();
+		Round lastRound = game.getHistory().get(3);
+		assertEquals(true, lastRound.getMovePlayer1() == Decision.BETRAY);
+	}
+	
+	@Test
+	void testRound4ActionStrategyPERIODICMEAN() {
+		player1.action(Decision.COOPERATE, 0);
+		player2.action(Decision.GIVEUP, 7);
+		game.launch();
+		player1.action(Decision.COOPERATE, 0);
+		player2.action(Decision.GIVEUP, 7);
+		game.launch();
+		player1.action(Decision.COOPERATE, 0);
+		player2.action(Decision.GIVEUP, 7);
+		game.launch();
+		player1.action(Decision.COOPERATE, 0);
+		player2.action(Decision.GIVEUP, 7);
+		game.launch();
+		Round lastRound = game.getHistory().get(3);
+		assertEquals(true, lastRound.getMovePlayer2() == Decision.BETRAY);
+	}
 	
 	@Test
 	void testRound1ActionNotPERIODICMEAN() {
