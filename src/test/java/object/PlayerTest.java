@@ -10,6 +10,11 @@ import org.junit.jupiter.api.Test;
 
 import com.example.RestServer;
 
+import game.Decision;
+import game.Game;
+import game.Player;
+import game.Round;
+
 class PlayerTest {
 
 	private Player player;

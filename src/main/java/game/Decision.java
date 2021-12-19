@@ -1,4 +1,4 @@
-package object;
+package game;
 
 public enum Decision {
 	COOPERATE, BETRAY, GIVEUP

@@ -1,13 +1,13 @@
-package strategiesHediAndPierre;
+package strategieshediandpierre;
 
 import java.util.List;
 
 import com.example.RestServer;
 
-import object.Decision;
-import object.Game;
-import object.Player;
-import object.Round;
+import game.Decision;
+import game.Game;
+import game.Player;
+import game.Round;
 
 public class ResentfulStrategy implements StrategyHediAndPierre {
 	

@@ -1,4 +1,4 @@
-package object;
+package game;
 
 
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -10,7 +10,7 @@ import strategies.AlwaysBetray;
 import strategies.AlwaysCollaborate;
 import strategies.GiveGive;
 import strategies.Strategy;
-import strategiesHediAndPierre.*;
+import strategieshediandpierre.*;
 
 @Getter
 @Setter
@@ -100,27 +100,11 @@ public class Player {
 			}
 			if(this.strategy != null) {
 				this.strategy.action(this);
-			}else {
+			} else {
 				StrategyAdaptor strat = new StrategyAdaptor();
 				strat.execute(this, strategy);
 			}
 		}
 	}
-	
-	
-//	public void sendSseEventsToUi(boolean notification) {
-//		 List<SseEmitter> sseEmitterListToRemove = new ArrayList<>();
-//		 Controller.emitters.forEach((SseEmitter emitter) -> {
-//	            try {
-//	                emitter.send(notification, MediaType.APPLICATION_JSON);
-//	            } catch (IOException e) {
-//	                emitter.complete();
-//	                sseEmitterListToRemove.add(emitter);
-//	                e.printStackTrace();
-//	            }
-//	        });
-//		 	System.out.println("---------------------------------------------->" + Controller.emitters);
-//	        Controller.emitters.removeAll(sseEmitterListToRemove);
-//	}
 	
 }

@@ -2,7 +2,6 @@ package com.example;
 
 
 import java.io.IOException;
-import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import object.Game;
-import object.Player;
-import object.Round;
+import game.Game;
+import game.Player;
 
 @RestController
 @CrossOrigin
@@ -39,7 +37,6 @@ public class Controller {
 			game.getPlayer1().sseEmitter.send(game);
 		} catch (IOException e) {
 			game.getPlayer1().sseEmitter.completeWithError(e);
-			e.printStackTrace();
 		}
 		return ResponseEntity.ok(game);
 	}
@@ -49,23 +46,6 @@ public class Controller {
 		Game game = findGameById(id);
 		return ResponseEntity.ok(game);
 	}
-	
-	@PutMapping("/game/{idGame}/update")
-	public ResponseEntity<Game> updateGame(@PathVariable(name = "idGame") int idGame,
-			@RequestBody Game newGame) {
-		Game game = findGameById(idGame);
-		game.setId(newGame.getId());
-		game.setNbTurns(newGame.getNbTurns());
-		game.setCurrentRound(newGame.getCurrentRound());
-		game.setHistory(newGame.getHistory());
-		game.setPlayer1(newGame.getPlayer1());
-		game.setPlayer2(newGame.getPlayer2());
-		if (game.getPlayer1().getCurrentDecision() != null && game.getPlayer2() != null && game.getPlayer2().getCurrentDecision() != null) {
-			game.launch();
-		}
-		return ResponseEntity.ok(game);
-	}
-	
 	
 	@GetMapping("game/lastGame")
 	public ResponseEntity<Game> readLastGame() {
@@ -116,23 +96,10 @@ public class Controller {
 			if(player.getId() == game.getPlayer2().getId()) {
 				game.getPlayer1().sseEmitter.completeWithError(e);
 			}
-			e.printStackTrace();
 		}
 		return ResponseEntity.ok(player);			
 	}
-	
-	@GetMapping("/game/{idGame}/allRounds")
-	public ResponseEntity<List<Round>> readAllRounds(@PathVariable(name = "idGame") int idGame) {
-		Game game = findGameById(idGame);
-		return ResponseEntity.ok(game.getHistory());
-	}
-	
-	@GetMapping("/game/{idGame}/allPlayers")
-	public ResponseEntity<List<Player>> readAllPlayers(@PathVariable(name = "idGame") int idGame) {
-		Game game = findGameById(idGame);
-		return ResponseEntity.ok(game.allPlayers());
-	}
-	
+
 	@GetMapping("/game/waitOtherPlayer/idGame={idGame}/idPlayer={idPlayer}")
 	public SseEmitter waitOtherPlayer(@PathVariable(name = "idGame")int idGame,
 			@PathVariable(name = "idPlayer")int idPlayer) {

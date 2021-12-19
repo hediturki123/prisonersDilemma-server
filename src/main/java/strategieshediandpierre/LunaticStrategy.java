@@ -1,8 +1,9 @@
-package strategiesHediAndPierre;
+package strategieshediandpierre;
 
 import java.util.Random;
-import object.Decision;
-import object.Player;
+
+import game.Decision;
+import game.Player;
 
 public class LunaticStrategy implements StrategyHediAndPierre {
 

@@ -1,7 +1,7 @@
-package strategiesHediAndPierre;
+package strategieshediandpierre;
 
-import object.Decision;
-import object.Player;
+import game.Decision;
+import game.Player;
 
 public interface StrategyHediAndPierre {
 	

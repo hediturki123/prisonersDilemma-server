@@ -11,10 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import object.Decision;
-import object.Game;
-import object.Player;
-import object.Round;
+import game.Decision;
+import game.Game;
+import game.Player;
 
 @SpringBootTest
 class ControllerTest {
@@ -108,30 +107,6 @@ class ControllerTest {
 		ResponseEntity<Player> updatePlayer = controller.updatePlayer(games.get(indexGameFound).getId(), newPlayer.getId(), newPlayer);
 		assertEquals(newPlayer.getScore(), updatePlayer.getBody().getScore());
 		assertEquals(newPlayer.getCurrentDecision(), updatePlayer.getBody().getCurrentDecision());
-	}
-	
-	@Test
-	void readAllPlayersTest() {
-		ResponseEntity<Game> createGame = controller.createGame(10);
-		createGame.getBody().getPlayer1().sseEmitter = new SseEmitter();
-		ResponseEntity<Game> joinGame = controller.joinGame(createGame.getBody().getId());
-		ResponseEntity<Game> readGame = controller.readGame(joinGame.getBody().getId());
-		ResponseEntity<List<Player>> readAllPlayers = controller.readAllPlayers(createGame.getBody().getId());
-		assertEquals(readAllPlayers.getBody().get(0), readGame.getBody().allPlayers().get(0));
-	}
-
-	@Test
-	void readAllRoundsTest() {
-		ResponseEntity<Game> createGame = controller.createGame(10);
-		createGame.getBody().getPlayer1().sseEmitter = new SseEmitter();
-		ResponseEntity<Game> joinGame = controller.joinGame(createGame.getBody().getId());
-		createGame.getBody().getPlayer2().sseEmitter = new SseEmitter();
-		ResponseEntity<Game> readGame = controller.readGame(joinGame.getBody().getId());
-		ResponseEntity<List<Round>> readAllRounds = controller.readAllRounds(createGame.getBody().getId());
-		readGame.getBody().getPlayer1().setCurrentDecision(Decision.COOPERATE);
-		readGame.getBody().getPlayer2().setCurrentDecision(Decision.COOPERATE);
-		readGame.getBody().launch();
-		assertEquals(readAllRounds.getBody().get(0), readGame.getBody().getHistory().get(0));
 	}
 	
 	@Test

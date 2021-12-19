@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import object.Game;
+import game.Game;
 
 @SpringBootApplication
 

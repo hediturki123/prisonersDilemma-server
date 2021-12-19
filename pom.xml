@@ -73,10 +73,10 @@
     </dependency>
     <dependency>
       <groupId>org.RomainYann</groupId>
-      <artifactId>StrategieRB</artifactId>
+      <artifactId>StrategieRomainAndYann</artifactId>
       <version>1.0</version>
       <scope>system</scope>
-      <systemPath>C:\Users\Utilisateur\Downloads\StrategieRB.jar</systemPath>
+      <systemPath>C:\Users\DELL\Desktop\StrategieRomainAndYann.jar</systemPath>
     </dependency>
   </dependencies>
 

@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import object.Decision;
-import object.Player;
+import game.Decision;
+import game.Player;
 
 class CooperateStrategyTest {
 

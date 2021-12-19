@@ -1,4 +1,4 @@
-package object;
+package game;
 
 
 import java.io.IOException;
@@ -101,7 +101,6 @@ public class Game {
 			} catch (IOException e) {
 				getPlayer2().sseEmitter.completeWithError(e);
 				getPlayer1().sseEmitter.completeWithError(e);
-				e.printStackTrace();
 			}
 		}
 	}
