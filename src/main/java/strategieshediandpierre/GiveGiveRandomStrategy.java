@@ -28,11 +28,8 @@ public final class GiveGiveRandomStrategy extends StrategyHediAndPierreImpl impl
 			}
 		}
 		else {
-			boolean isGameFound = searchGame(player);
-			
-			if(!isGameFound) {
-				player.setCurrentDecision(Decision.COOPERATE);
-				return Decision.COOPERATE;
+			if(!isGameFound(player)) {
+				return cooperateActionPlayer(player);
 			}
 			else {
 				Game game = RestServer.getGames().get(getIndex());
