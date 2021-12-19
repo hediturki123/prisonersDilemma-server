@@ -29,14 +29,17 @@ public class Player {
 	private Decision currentDecision;
 	
 	private boolean havePlayed = false;
+	
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
-	private boolean hasLeftTheGame;
+	public boolean hasLeftTheGame;
+
+	private int strategyCode;
+	
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
 	public SseEmitter sseEmitter;
 	
-	private int strategyCode;
 	
 	public Player() {
 		this.id = staticId++;
