@@ -6,10 +6,11 @@ import game.Decision;
 import game.Player;
 
 public class LunaticStrategy implements StrategyHediAndPierre {
+	
+	Random random = new Random();
 
 	@Override
 	public Decision action(Player player) {
-		Random random = new Random();
 		boolean isDecisionCooperate = random.nextBoolean();
 		if (isDecisionCooperate) {
 			player.setCurrentDecision(Decision.COOPERATE);

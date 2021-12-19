@@ -16,7 +16,7 @@ public class PeriodicKind extends StrategyHediAndPierreImpl implements StrategyH
 		boolean isGameFound = searchGame(player);
 		
 		if(!isGameFound) {
-			player.setCurrentDecision(Decision.COOPERATE);
+	 	 	player.setCurrentDecision(Decision.COOPERATE);
 			return Decision.COOPERATE;
 		} else {
 			Game game = RestServer.getGames().get(getIndex());

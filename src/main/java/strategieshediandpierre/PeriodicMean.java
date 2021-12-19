@@ -18,10 +18,10 @@ public class PeriodicMean extends StrategyHediAndPierreImpl implements StrategyH
 		if(!isGameFound) {
 			player.setCurrentDecision(Decision.COOPERATE);
 			return Decision.COOPERATE;
-		}else {
+		} else {
 			Game game = RestServer.getGames().get(getIndex());
 			List<Round> rounds = game.getHistory();
-			if(rounds != null && rounds.size() > 1) {
+		 	if(rounds != null && rounds.size() > 1) {
 				Round lastRound = rounds.get(rounds.size() - 1);
 				Round antepenultimateRound = rounds.get(rounds.size() - 2);
 				if (player.getId() == game.getPlayer1().getId()) {
@@ -29,7 +29,7 @@ public class PeriodicMean extends StrategyHediAndPierreImpl implements StrategyH
 							&& antepenultimateRound.getMovePlayer1() == Decision.BETRAY) {
 						player.setCurrentDecision(Decision.COOPERATE);
 						return Decision.COOPERATE;
-					}else {
+					} else {
 						player.setCurrentDecision(Decision.BETRAY);
 						return Decision.BETRAY;
 					}

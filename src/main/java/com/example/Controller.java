@@ -3,6 +3,8 @@ package com.example;
 
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,8 @@ import game.Player;
 @CrossOrigin
 @RequestMapping("/home")
 public class Controller {
+	
+	private static final Logger LOGGER =  LogManager.getLogger(Controller.class);
 	
 	@PostMapping("/{nbTurns}")
 	public ResponseEntity<Game> createGame(@PathVariable(name = "nbTurns") int nbTurns) {
@@ -115,9 +119,7 @@ public class Controller {
 			}
 		}
 		
-		emitter.onCompletion(() ->
-			System.out.println("")
-		);
+		emitter.onCompletion(() -> LOGGER.info("completion"));
 		emitter.onTimeout(emitter::complete);
 		emitter.onError(ex -> emitter.complete());
 		
