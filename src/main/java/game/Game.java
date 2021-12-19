@@ -6,11 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-
 import com.example.RestServer;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,17 +30,12 @@ public class Game {
 	
 	private int nbTurns;
 	
-	@Getter(AccessLevel.NONE)
-	@Setter(AccessLevel.NONE)
-	private SseEmitter sseEmitter;
-	
 	public Game(int nbTurns) {
 		this.id = staticId++;
 		setNbTurns(nbTurns);
 		this.currentRound = 1;
 		RestServer.addGame(this);
 		this.history = new ArrayList<>();
-		this.sseEmitter = new SseEmitter();	
 	}
 	
 	public Game() {
@@ -52,7 +44,6 @@ public class Game {
 		this.currentRound = 1;
 		RestServer.addGame(this);
 		this.history = new ArrayList<>();
-		this.sseEmitter = new SseEmitter();		
 	}
 	
 	public void calculateScore(Round round) {

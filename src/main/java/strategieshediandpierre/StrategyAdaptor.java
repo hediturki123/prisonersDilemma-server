@@ -37,16 +37,16 @@ public class StrategyAdaptor {
 					if(lastRound.getMovePlayer2() == Decision.COOPERATE)
 					{
 						if(strat.askAction(Action.COLLABORER) == Action.COLLABORER) {
-							player.setCurrentDecision(Decision.COOPERATE);
+							player.action(Decision.COOPERATE,0);
 						}else {
-							player.setCurrentDecision(Decision.BETRAY);
+							player.action(Decision.BETRAY,0);
 						}
 					}
 					else {
 						if(strat.askAction(Action.TRAHIR) == Action.COLLABORER) {
-							player.setCurrentDecision(Decision.COOPERATE);
+							player.action(Decision.COOPERATE,0);
 						}else {
-							player.setCurrentDecision(Decision.BETRAY);
+							player.action(Decision.BETRAY,0);
 						}
 					}
 				}
@@ -54,16 +54,16 @@ public class StrategyAdaptor {
 					if(lastRound.getMovePlayer1() == Decision.COOPERATE)
 					{
 						if(strat.askAction(Action.COLLABORER) == Action.COLLABORER) {
-							player.setCurrentDecision(Decision.COOPERATE);
+							player.action(Decision.COOPERATE,0);
 						}else {
-							player.setCurrentDecision(Decision.BETRAY);
+							player.action(Decision.BETRAY,0);
 						}
 					}
 					else {
 						if(strat.askAction(Action.TRAHIR) == Action.COLLABORER) {
-							player.setCurrentDecision(Decision.COOPERATE);
+							player.action(Decision.COOPERATE,0);
 						} else {
-							player.setCurrentDecision(Decision.BETRAY);
+							player.action(Decision.BETRAY,0);
 						}
 					}
 				}

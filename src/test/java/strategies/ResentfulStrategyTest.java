@@ -46,47 +46,47 @@ class ResentfulStrategyTest {
 		assertEquals(true, lastRound.getMovePlayer2() == Decision.COOPERATE);
 	}
 	
-//	@Test
-//	void testRound2WithOtherPlayerCooperateActionStrategyRESENTFUL() {
-//		player1.action(Decision.COOPERATE, 0);
-//		player2.action(Decision.GIVEUP, 8);
-//		game.launch();
-//		player1.action(Decision.COOPERATE, 0);
-//		player2.action(Decision.GIVEUP, 8);
-//		game.launch();
-//		Round lastRound = game.getHistory().get(1);
-//		assertEquals(true, lastRound.getMovePlayer2() == Decision.COOPERATE);
-//	}
-//	
-//	@Test
-//	void testRound2WithOtherPlayerBetrayActionStrategyRESENTFUL() {
-//		player1.action(Decision.BETRAY, 0);
-//		player2.action(Decision.GIVEUP, 8);
-//		game.launch();
-//		player1.action(Decision.COOPERATE, 0);
-//		player2.action(Decision.GIVEUP, 8);
-//		game.launch();
-//		Round lastRound = game.getHistory().get(1);
-//		assertEquals(true, lastRound.getMovePlayer2() == Decision.BETRAY);
-//	}
-//	
-//	@Test
-//	void testRound3WithOtherPlayerBetrayActionStrategyRESENTFUL() {
-//		player1.action(Decision.BETRAY, 0);
-//		player2.action(Decision.GIVEUP, 8);
-//		game.launch();
-//		player1.action(Decision.COOPERATE, 0);
-//		player2.action(Decision.GIVEUP, 8);
-//		game.launch();
-//		player1.action(Decision.COOPERATE, 0);
-//		player2.action(Decision.GIVEUP, 8);
-//		game.launch();
-//		Round antepenultimateRound = game.getHistory().get(1);
-//		Round lastRound = game.getHistory().get(2);
-//		assertEquals(true, antepenultimateRound.getMovePlayer2() == Decision.BETRAY);
-//		assertEquals(true, lastRound.getMovePlayer2() == Decision.BETRAY);
-//	}
-
+	@Test
+	void testRound2WithOtherPlayerCooperateActionStrategyRESENTFUL() {
+		player1.action(Decision.COOPERATE, 0);
+		player2.action(Decision.GIVEUP, 8);
+		game.launch();
+		player1.action(Decision.COOPERATE, 0);
+		player2.action(Decision.GIVEUP, 8);
+		game.launch();
+		Round lastRound = game.getHistory().get(1);
+		assertEquals(true, lastRound.getMovePlayer2() == Decision.COOPERATE);
+	}
+	
+	@Test
+	void testRound2WithOtherPlayerBetrayActionStrategyRESENTFUL() {
+		player1.action(Decision.BETRAY, 0);
+		player2.action(Decision.GIVEUP, 8);
+		game.launch();
+		player1.action(Decision.COOPERATE, 0);
+		player2.action(Decision.GIVEUP, 8);
+		game.launch();
+		Round lastRound = game.getHistory().get(1);
+		assertEquals(true, lastRound.getMovePlayer2() == Decision.BETRAY);
+	}
+	
+	@Test
+	void testRound3WithOtherPlayerBetrayActionStrategyRESENTFUL() {
+		player1.action(Decision.BETRAY, 0);
+		player2.action(Decision.GIVEUP, 8);
+		game.launch();
+		player1.action(Decision.COOPERATE, 0);
+		player2.action(Decision.GIVEUP, 8);
+		game.launch();
+		player1.action(Decision.COOPERATE, 0);
+		player2.action(Decision.GIVEUP, 8);
+		game.launch();
+		Round antepenultimateRound = game.getHistory().get(1);
+		Round lastRound = game.getHistory().get(2);
+		assertEquals(Decision.BETRAY
+				, antepenultimateRound.getMovePlayer2());
+		assertEquals(true, lastRound.getMovePlayer2() == Decision.BETRAY);
+	}
 	
 	@Test
 	void testRound1ActionNotRESENTFUL() {
