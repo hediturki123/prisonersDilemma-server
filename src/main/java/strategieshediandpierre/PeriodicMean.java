@@ -58,6 +58,7 @@ public class PeriodicMean implements StrategyHediAndPierre {
 				player.setCurrentDecision(Decision.BETRAY);
 				return Decision.BETRAY;
 			}
+			player.setCurrentDecision(Decision.BETRAY);
 			return Decision.BETRAY;
 		}
 	}

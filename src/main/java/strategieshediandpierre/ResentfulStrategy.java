@@ -51,6 +51,7 @@ public class ResentfulStrategy implements StrategyHediAndPierre {
 				}
 			}
 		}
+		player.setCurrentDecision(Decision.COOPERATE);
 		return Decision.COOPERATE;
 	}
 }

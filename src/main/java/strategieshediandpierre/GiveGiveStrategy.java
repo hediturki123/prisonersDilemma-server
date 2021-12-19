@@ -41,6 +41,7 @@ public final class GiveGiveStrategy implements StrategyHediAndPierre {
 					return lastRound.getMovePlayer1();
 				}
 			}
+			player.setCurrentDecision(Decision.COOPERATE);
 			return Decision.COOPERATE;
 		}
 	}
