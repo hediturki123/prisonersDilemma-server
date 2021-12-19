@@ -38,7 +38,7 @@ public class ResentfulStrategy implements StrategyHediAndPierre {
 		} else{
 			Game game = RestServer.getGames().get(index);
 			List<Round> rounds = game.getHistory();
-			if(rounds != null && rounds.isEmpty()) {
+			if(rounds != null && !rounds.isEmpty()) {
 				int indexRound = 0;
 				if (player.getId() == game.getPlayer1().getId()) {
 					while(indexRound < rounds.size() && rounds.get(indexRound).getMovePlayer2() != Decision.BETRAY) {
@@ -49,7 +49,7 @@ public class ResentfulStrategy implements StrategyHediAndPierre {
 						return Decision.BETRAY;
 					}
 				}
-				if (player.getId() == game.getPlayer2().getId()) {
+				else if (player.getId() == game.getPlayer2().getId()) {
 					while(indexRound < rounds.size() && rounds.get(indexRound).getMovePlayer1() != Decision.BETRAY) {
 						indexRound++;
 					}
@@ -58,6 +58,9 @@ public class ResentfulStrategy implements StrategyHediAndPierre {
 						return Decision.BETRAY;
 					}
 				}
+			} else {
+				player.setCurrentDecision(Decision.COOPERATE);
+				return Decision.COOPERATE;
 			}
 		}
 		player.setCurrentDecision(Decision.COOPERATE);

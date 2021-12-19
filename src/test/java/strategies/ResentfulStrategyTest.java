@@ -83,7 +83,8 @@ class ResentfulStrategyTest {
 		game.launch();
 		Round antepenultimateRound = game.getHistory().get(1);
 		Round lastRound = game.getHistory().get(2);
-		assertEquals(true, antepenultimateRound.getMovePlayer2() == Decision.BETRAY);
+		assertEquals(Decision.BETRAY
+				, antepenultimateRound.getMovePlayer2());
 		assertEquals(true, lastRound.getMovePlayer2() == Decision.BETRAY);
 	}
 
