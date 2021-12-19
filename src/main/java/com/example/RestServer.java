@@ -8,8 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import game.Game;
 
+/**
+ * Classe qui permet de lancer le serveur 
+ *
+ */
 @SpringBootApplication
-
 public class RestServer {
 	
 	private static List<Game> games = new ArrayList<>();

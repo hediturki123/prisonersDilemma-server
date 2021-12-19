@@ -11,7 +11,9 @@ import com.example.RestServer;
 import lombok.Getter;
 import lombok.Setter;
 
-
+/**
+ * Classe correspondante à une partie 
+ */
 @Getter
 @Setter
 public class Game {
@@ -45,7 +47,10 @@ public class Game {
 		RestServer.addGame(this);
 		this.history = new ArrayList<>();
 	}
-	
+	/**
+	 * Méthode qui permet de calculer le score d'un joueur en fonction de l'action qu'il a faite.
+	 * @param round le round qu'a joué le joueur
+	 */
 	public void calculateScore(Round round) {
 		switch(round.getMovePlayer1()) {
 			case COOPERATE :
@@ -95,7 +100,12 @@ public class Game {
 			}
 		}
 	}
-
+	
+	/**
+	 * Méthode permettant de chercher un joueur à partir de son identifiant.
+	 * @param id L'identifiant du joueur 
+	 * @return le joueur ou null
+	 */
 	public Player findPlayerById(int id) {
 		if (player1.getId() == id) {
 			return player1;
@@ -106,6 +116,10 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Méthode qui retourne la liste des joueurs
+	 * @return liste des joueurs
+	 */
 	public List<Player> allPlayers() {
 		return Arrays.asList(player1, player2);
 	}
