@@ -76,7 +76,7 @@ public class Controller {
 		Game game = findGameById(idGame);
 		Player player = game.findPlayerById(idPlayer);
 		player.setHavePlayed(newPlayer.isHavePlayed());
-		player.action(newPlayer.getCurrentDecision(), 0);
+		player.action(newPlayer.getCurrentDecision(), newPlayer.getStrategyCode());
 		
 		if(game.getPlayer1().getId() == player.getId()) {			
 			game.setPlayer1(player);

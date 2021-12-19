@@ -36,6 +36,8 @@ public class Player {
 	@Setter(AccessLevel.NONE)
 	public SseEmitter sseEmitter;
 	
+	private int strategyCode;
+	
 	public Player() {
 		this.id = staticId++;
 		this.score = 0;
