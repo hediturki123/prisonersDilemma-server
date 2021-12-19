@@ -13,20 +13,29 @@ public class ResentfulStrategy implements StrategyHediAndPierre {
 	
 	@Override
 	public Decision action(Player player) {
-    	int index = 0;
-    	if(RestServer.getGames().get(index).getPlayer2() != null)
-    	{
-    		while(index < RestServer.getGames().size() && RestServer.getGames().get(index).getPlayer1().getId() != player.getId() && RestServer.getGames().get(index).getPlayer2().getId() != player.getId()) {
-    			index++;
-    		}
-    	}else {
-    		while(index < RestServer.getGames().size() && RestServer.getGames().get(index).getPlayer1().getId() != player.getId()) {
-    			index++;
-    		}
-    	}
+		int index = 0;
+		boolean isGameFound = false;
+		while(index < RestServer.getGames().size() && !isGameFound)
+		{
+			if(RestServer.getGames().get(index).getPlayer2() != null 
+					&& (RestServer.getGames().get(index).getPlayer1().getId() == player.getId() 
+					|| RestServer.getGames().get(index).getPlayer2().getId() == player.getId()))
+			{
+				isGameFound = true;
+				index--;
+			}
+			else if(RestServer.getGames().get(index).getPlayer1().getId() == player.getId())
+			{
+				isGameFound = true;
+				index--;
+			}
+			index++;
+		}
 		
-    	player.setCurrentDecision(Decision.COOPERATE);
-		if(index != RestServer.getGames().size()) {
+		if(!isGameFound) {
+			player.setCurrentDecision(Decision.COOPERATE);
+			return Decision.COOPERATE;
+		} else{
 			Game game = RestServer.getGames().get(index);
 			List<Round> rounds = game.getHistory();
 			if(rounds != null && rounds.size() > 0) {

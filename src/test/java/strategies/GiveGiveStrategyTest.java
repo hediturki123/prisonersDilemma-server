@@ -47,8 +47,8 @@ public class GiveGiveStrategyTest {
 		player1.action(Decision.COOPERATE, 0);
 		player2.action(Decision.GIVEUP, 1);
 		game.launch();
-		Round lastRound = game.getHistory().get(1);
-		assertEquals(true, lastRound.getMovePlayer2() == Decision.BETRAY);
+		Round lastRound = game.getHistory().get(game.getHistory().size()-1);
+		assertEquals(Decision.BETRAY, lastRound.getMovePlayer2());
 	}
 	
 	@Test

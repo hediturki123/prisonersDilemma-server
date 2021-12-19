@@ -29,10 +29,25 @@ public final class GiveGiveRandomStrategy implements StrategyHediAndPierre {
 		}
 		else {
 			int index = 0;
-			while(index < RestServer.getGames().size() && RestServer.getGames().get(index).getPlayer2() != null && (RestServer.getGames().get(index).getPlayer1().getId() != player.getId() && RestServer.getGames().get(index).getPlayer2().getId() != player.getId())) {
+			boolean isGameFound = false;
+			while(index < RestServer.getGames().size() && !isGameFound)
+			{
+				if(RestServer.getGames().get(index).getPlayer2() != null 
+						&& (RestServer.getGames().get(index).getPlayer1().getId() == player.getId() 
+						|| RestServer.getGames().get(index).getPlayer2().getId() == player.getId()))
+				{
+					isGameFound = true;
+					index--;
+				}
+				else if(RestServer.getGames().get(index).getPlayer1().getId() == player.getId())
+				{
+					isGameFound = true;
+					index--;
+				}
 				index++;
 			}
-			if(index == RestServer.getGames().size()) {
+			
+			if(!isGameFound) {
 				player.setCurrentDecision(Decision.COOPERATE);
 				return Decision.COOPERATE;
 			}
