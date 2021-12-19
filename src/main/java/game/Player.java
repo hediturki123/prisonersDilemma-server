@@ -11,7 +11,9 @@ import strategies.AlwaysCollaborate;
 import strategies.GiveGive;
 import strategies.Strategy;
 import strategieshediandpierre.*;
-
+/**
+ * Classe correspondante à un joueur
+ */
 @Getter
 @Setter
 public class Player {
@@ -46,19 +48,34 @@ public class Player {
 		this.score = 0;
 		this.hasLeftTheGame = false;
 	}
-	
+	/**
+	 * Méthode permettant de créer unne partie
+	 * @param nbTurns le nombre de tours que le joueur aura choisi
+	 * @return la partie créée
+	 */
 	public Game createGame(int nbTurns) {
 		Game game = new Game(nbTurns);
 		game.setPlayer1(this); 
 		return game;
 	}
-	
+	/**
+	 * Méthode permettant de rejoindre une partie
+	 * @param game la partie que je joueur veut rejoindre
+	 */
 	public void joinGame(Game game) {
 		if (game.getPlayer1().getId() != this.id && game.getPlayer2() == null) {
 			game.setPlayer2(this);
 		}
 	}
 	
+	/**
+	 * Méthode permettant d'appliquer une décision prise par le joueur ou d'appliquer une stratégie.
+	 * Les stratégies implémentées sont celles que nous avons implémentées nous même et celles de 
+	 * Romain et Yann.
+	 * 
+	 * @param decision la décision prise par le joueur
+	 * @param strategyCode le code de la stratégie que le joueur à choisi
+	 */
 	public void action(Decision decision, int strategyCode) {
 		if(strategyCode == 0) {
 			this.currentDecision = decision;

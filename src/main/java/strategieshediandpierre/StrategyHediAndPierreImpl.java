@@ -4,14 +4,16 @@ import com.example.RestServer;
 
 import game.Player;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class StrategyHediAndPierreImpl {
 
 	private int index = 0;
-	
+	/**
+	 * Méthode qui permet de rechercher une partie (écrite pour éviter de dupliquer du code)
+	 * @param player le joueur
+	 * @return boolean partie trouvée ou pas
+	 */
 	public boolean searchGame(Player player) {
 		boolean isGameFound = false;
 		while(index < RestServer.getGames().size() && !isGameFound) {
