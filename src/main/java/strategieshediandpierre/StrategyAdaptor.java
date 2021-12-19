@@ -14,9 +14,8 @@ import strategies.Strategy;
 public class StrategyAdaptor extends StrategyHediAndPierreImpl{
 
 	public void execute(Player player, Strategy strat) {
-		boolean isGameFound = searchGame(player);
 		
-		if(!isGameFound) {
+		if(!isGameFound(player)) {
 			strat.askAction(null);
 		} else {
 			Game game = RestServer.getGames().get(getIndex());

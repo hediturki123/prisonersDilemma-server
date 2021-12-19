@@ -13,11 +13,9 @@ public class PeriodicMean extends StrategyHediAndPierreImpl implements StrategyH
 
 	@Override
 	public Decision action(Player player) {
-		boolean isGameFound = searchGame(player);
 		
-		if(!isGameFound) {
-			player.setCurrentDecision(Decision.COOPERATE);
-			return Decision.COOPERATE;
+		if(!isGameFound(player)) {
+			return cooperateActionPlayer(player);
 		} else {
 			Game game = RestServer.getGames().get(getIndex());
 			List<Round> rounds = game.getHistory();

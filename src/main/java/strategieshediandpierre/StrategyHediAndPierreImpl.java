@@ -2,6 +2,7 @@ package strategieshediandpierre;
 
 import com.example.RestServer;
 
+import game.Decision;
 import game.Player;
 import lombok.Getter;
 
@@ -14,7 +15,7 @@ public class StrategyHediAndPierreImpl {
 	 * @param player le joueur
 	 * @return boolean partie trouvée ou pas
 	 */
-	public boolean searchGame(Player player) {
+	public boolean isGameFound(Player player) {
 		boolean isGameFound = false;
 		while(index < RestServer.getGames().size() && !isGameFound) {
 			if(RestServer.getGames().get(index).getPlayer2() != null 
@@ -27,5 +28,10 @@ public class StrategyHediAndPierreImpl {
 			index++;
 		}
 		return isGameFound;
+	}
+	
+	public Decision cooperateActionPlayer(Player player) {
+		player.setCurrentDecision(Decision.COOPERATE);
+		return Decision.COOPERATE;
 	}
 }

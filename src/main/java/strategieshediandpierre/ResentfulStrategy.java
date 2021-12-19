@@ -13,12 +13,10 @@ public class ResentfulStrategy extends StrategyHediAndPierreImpl implements Stra
 	
 	@Override
 	public Decision action(Player player) {
-		boolean isGameFound = searchGame(player);
 		
-		if(!isGameFound) {
-			player.setCurrentDecision(Decision.COOPERATE);
-			return Decision.COOPERATE;
-		} else{
+		if(!isGameFound(player)) {
+			return cooperateActionPlayer(player);
+		} else {
 			Game game = RestServer.getGames().get(getIndex());
 			List<Round> rounds = game.getHistory();
 			if(rounds != null && !rounds.isEmpty()) {
