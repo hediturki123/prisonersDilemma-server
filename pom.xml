@@ -79,7 +79,7 @@
       <artifactId>StrategieRB</artifactId>
       <version>1.0</version>
       <scope>system</scope>
-      <systemPath>C:\Users\DELL\Desktop\prisonnersDilemma-server\StrategieRB.jar</systemPath>
+      <systemPath>${basedir}/StrategieRB.jar</systemPath>
     </dependency>
   </dependencies>
 
